@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TableBooker</title>
+    <link rel="stylesheet" href="css/index.min.css">
+</head>
+<body>
+    <header>
+        <div class="header-menu">
+            <a id="home-logo-link" href="/">TableBooker</a>
+            <button type="button">+</button>
+        </div>
+        <div class="account-container">
+            <a id="header-login" href="/login.html">Login</a>
+            <a id="header-signup" href="/sign-up.html">Sign Up</a>
+        </div>
+    </header>
+    <main>
+        <img src="assets/images/landing.jpg" alt="Warm restaurant booth seating.">
+        <form id="reservation-form" action="">
+            <label for="reservation-date">
+                Reservation Date
+                <input id="reservation-date" type="date" />
+                <script>
+                    // Defaults date to today.
+                    document.getElementById('reservation-date').value = new Date().toLocaleDateString('en-CA');
+                </script>
+            </label>
+
+            <label for="reservation-time">
+                Reservation Time
+                <input id="reservation-time" type="time" list="available-time-list" />
+                <datalist id="available-time-list">
+                    <option value="18:30:00">6:30:00</option>
+                </datalist>
+            </label>
+
+            <label for="reservation-party-size">
+                Party Size
+                <input id="reservation-party-size" type="number" value="3">
+            </label>
+
+            <label for="restaurant-name">
+                Restaurant
+                <input id="restaurant-name" type="text" list="available-restaurant-list" placeholder="Enter a Restaurant Name.">
+                <datalist id="available-restaurant-list">
+                    <option value="Restaurant 1">Restaurant 1 Address</option>
+                    <option value="Restaurant 2">Restaurant 2 Address</option>
+                </datalist>
+            </label>
+
+            <button type="submit">
+                Setup Reservation
+            </button>
+        </form>
+
+        <section id="available-reservations">
+            <h1>Available Reservations for 3 People.</h1>
+            <article class="restaurant-container">
+                <div class="restaurant-title-container">
+                    <span>Rest. 1</span>
+                    <span>Rest. 1 Address</span>
+                </div>
+                <ul class="available-times">
+                    <li><a href=""><time datetime="2022-01-05 18:00">6:00 PM</time></a></li>
+                    <li><a href=""><time datetime="2022-01-05 18:30">6:30 PM</time></a></li>
+                    <li><a href=""><time datetime="2022-01-05 19:00">7:00 PM</time></a></li>
+                    <li><a href=""><time datetime="2022-01-05 19:30">7:30 PM</time></a></li>
+                    <li><a href=""><time datetime="2022-01-05 20:00">8:00 PM</time></a></li>
+                    <li><a href=""><time datetime="2022-01-05 20:30">9:30 PM</time></a></li>
+                </ul>
+            </article>
+            <article class="restaurant-container">
+                <div class="restaurant-title-container">
+                    <span>Rest. 2</span>
+                    <span>Rest. 2 Address</span>
+                </div>
+                <ul class="available-times">
+                    <li><a href=""><time datetime="2022-01-05 18:00">6:00 PM</time></a></li>
+                    <li><a href=""><time datetime="2022-01-05 18:30">6:30 PM</time></a></li>
+                    <li><a href=""><time datetime="2022-01-05 20:00">8:00 PM</time></a></li>
+                </ul>
+            </article>
+            <article class="restaurant-container">
+                <div class="restaurant-title-container">
+                    <span>Rest. 3</span>
+                    <span>Rest. 3 Address</span>
+                </div>
+                <ul class="available-times">
+                    <li><a href=""><time datetime="2022-01-05 18:00">6:00 PM</time></a></li>
+                    <li><a href=""><time datetime="2022-01-05 19:00">7:00 PM</time></a></li>
+                    <li><a href=""><time datetime="2022-01-05 20:00">8:00 PM</time></a></li>
+                    <li><a href=""><time datetime="2022-01-05 20:30">9:30 PM</time></a></li>
+                </ul>
+            </article>
+        </section>
+
+        <section class="restaurant-categories">
+            <h2>Find Your New Favorite.</h2>
+            <ul>
+                <li><a href="">Italian Food</a></li>
+                <li><a href="">Chinese Food</a></li>
+                <li><a href="">Fast Food</a></li>
+                <li><a href="">Drive Thru</a></li>
+                <li><a href="">Pick Up</a></li>
+                <li><a href="">Pizza</a></li>
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <a class="home-logo-link" href="/">TableBooker</a>
+    </footer>
+</body>
+</html>

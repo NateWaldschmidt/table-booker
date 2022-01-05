@@ -1,0 +1,13 @@
+@use '../utilities/variables' as var;
+
+input {
+    box-sizing:    border-box;
+    border:        none;
+    border-radius: 1rem;
+
+    background-color: var.$color-bg-light;
+
+    color:       var.$color-primary-dark;
+    font-family: 'Roboto', sans-serif;
+    font-size:   0.875rem;
+}

@@ -1,0 +1,22 @@
+@use 'variables' as var;
+@use '../components/header';
+@use '../components/footer';
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap');
+
+html::before {
+    content: "";
+
+    position: fixed;
+    top:    0;
+    bottom: 0;
+    left:   0;
+    right:  0;
+
+    background-color: var.$color-primary-light;
+    z-index: -2;
+}
+
+body {
+    margin: 0;
+}

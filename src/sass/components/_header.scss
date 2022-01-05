@@ -1,0 +1,98 @@
+@use '../utilities/variables' as var;
+
+$header-height: 100px;
+
+body {
+    position: relative;
+    top: $header-height;
+}
+
+body > header {
+    display:         flex;
+    align-items:     center;
+    justify-content: space-between;
+
+    position: fixed;
+    top:   0;
+    left:  0;
+    right: 0;
+
+    height:        $header-height;
+    padding:       1rem;
+    box-sizing:    border-box;
+
+    // Enables hardware acceleration.
+    transform: translate3d(0, 0, 0);
+
+    z-index: 3;
+
+    &::before {
+        content: "";
+
+        position: fixed;
+        top:      0;
+        left:     0;
+        right:    0;
+
+        height:        $header-height;
+        border-radius: 0 0 10px 10px;
+
+        background-color: rgba(var.$color-bg-dark, 0.25);
+        backdrop-filter:  blur(50px);
+
+        z-index: -1;
+    }
+}
+
+.header-menu {
+    display: flex;
+    gap:     1rem;
+}
+
+#home-logo-link {
+    color:           var.$color-font-light;
+    font-family:     'Roboto', sans-serif;
+    font-size:         2.25rem;
+    font-weight:     900;
+    text-decoration: none;
+
+    @media screen and (var.$mobile-only) {
+        font-size: 1.25rem;
+    }
+}
+
+.account-container {
+    display:     flex;
+    align-items: center;
+    gap:         1rem;
+
+    @media screen and (var.$mobile-only) {
+        flex-direction: column-reverse;
+    }
+}
+
+#header-login {
+    color:           var.$color-font-light;
+    font-family:     'Roboto', sans-serif;
+    font-size:         1.125rem;
+    font-weight:     700;
+    text-decoration: none;
+}
+
+#header-signup {
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+
+    width:         12rem;
+    padding:        0.75rem 0;
+    border-radius:  5px;
+
+    background-color: var.$color-primary;
+
+    color:           var.$color-font-light;
+    font-family:     'Roboto', sans-serif;
+    font-size:         1.125rem;
+    font-weight:     700;
+    text-decoration: none;
+}
