@@ -180,4 +180,19 @@ main {
             transition: color ease 250ms, background-color ease 250ms;
         }
     }
+
+    [type=submit] {
+        cursor: pointer;
+
+        height:        40px;
+        border:        none;
+        border-radius: 5px;
+
+        background-color: var.$color-primary;
+
+        color: var.$color-font-light;
+        font-family: 'Roboto', sans-serif;
+        font-size:     0.875rem;
+        font-weight: 700;
+    }
 }
