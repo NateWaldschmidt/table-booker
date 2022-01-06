@@ -108,13 +108,29 @@
                 const submitButton = document.querySelector('.reservation-form > [type=submit]');
                 submitButton.addEventListener('click', (e) => {
                     e.preventDefault();
-                    console.log('Submitting...');
 
-
+                    // Runs first animation.
                     let confirmationMessage = document.querySelector('.confirmation-message')
                     confirmationMessage.hidden = false;
+
+                    // Shows message for 5 seconds.
                     setTimeout(() => {
-                        confirmationMessage.hidden = true;
+                        // Stores and removes animation style.
+                        let animationStyle = window.getComputedStyle(confirmationMessage).animation;
+
+                        // Runs the hide animation.
+                        window.requestAnimationFrame(() => {
+                            confirmationMessage.style.animation = undefined;
+                            window.requestAnimationFrame(() => {
+                                confirmationMessage.style.animation = '0.3s ease 0s 1 reverse none running slide-in';
+                            });
+                        });
+
+                        // Hides from DOM and reverts styles back.
+                        setTimeout(() => {
+                            confirmationMessage.hidden = true;
+                            confirmationMessage.style.animation = animationStyle;
+                        }, 300);
                     }, 5000);
                 });
             })();
