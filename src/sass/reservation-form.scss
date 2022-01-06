@@ -72,6 +72,7 @@ main {
 
     & > .price-rating {
         display:         flex;
+        align-items: center;
         justify-content: center;
         gap:             0.75rem;
 
@@ -81,7 +82,12 @@ main {
             width:  32px;
             height: 32px;
 
-            background-color: green;
+            color:       #90BE6D;
+            font-family: 'Roboto', sans-serif;
+            font-size:    32px;
+            font-weight: 900;
+            text-align:  center;
+            text-shadow: 3px 3px 0 rgba(#90BE6D, 0.45);
         }
     }
 }

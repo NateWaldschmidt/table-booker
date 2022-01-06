@@ -32,25 +32,28 @@
                                                                                                                                                                                                                  
             </div>
             <div class="price-rating">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
+                <div>$</div>
+                <div>$</div>
+                <div>$</div>
+                <div>$</div>
             </div>
         </section>
         <form class="reservation-form">
             <h2 class="title">Create Reservation</h2>
 
+            <!-- Name for the Reservation -->
             <label class="label-general" for="reservation-name">
                 <label for="reservation-name">Reservation Name</label>
                 <input type="text" name="reservation-name" id="reservation-name" value="John Smith" />
             </label>
 
+            <!-- Date of the Reservation -->
             <label class="label-general" for="reservation-date">
                 Reservation Date
                 <input type="date" name="reservation-date" id="reservation-date" value="2022-01-06" />
             </label>
 
+            <!-- All of the Avilable Time Options -->
             <fieldset>
                 <legend>Time</legend>
                 <input id="time-1" type="radio" name="reservation-time" checked />
@@ -94,6 +97,7 @@
             </label>
             <button type="submit">Create Reservation</button>
 
+            <!-- Popup Confirmation Message -->
             <div class="confirmation-message" hidden>
                 <p>Reservation Confirmed!</p>
             </div>
