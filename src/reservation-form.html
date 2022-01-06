@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Booker - Reservation Creation</title>
+    <link rel="stylesheet" href="css/reservation-form.min.css">
+</head>
+<body>
+    <main>
+        <section class="restaurant-info">
+            <a class="btn-cancel" href="/">Cancel</a>
+            <h1>Cafe Bilhares</h1>
+            <img class="restaurant-photo" src="/assets/images/cafe.jpg" alt="Cafe Exterior.">
+            <div class="restaurant-rating">
+                <svg width="37" height="35" viewBox="0 0 37 35" fill="black" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15.621 2.01934C16.4064 -0.397884 19.8261 -0.397887 20.6115 2.01934L23.0621 9.56139C23.4133 10.6424 24.4207 11.3743 25.5574 11.3743H33.4876C36.0292 11.3743 37.0859 14.6267 35.0297 16.1206L28.6141 20.7818C27.6945 21.45 27.3097 22.6342 27.661 23.7152L30.1115 31.2573C30.8969 33.6745 28.1303 35.6846 26.0741 34.1906L19.6584 29.5294C18.7389 28.8613 17.4937 28.8613 16.5741 29.5294L10.1585 34.1906C8.10224 35.6846 5.33562 33.6745 6.12102 31.2573L8.57158 23.7152C8.92283 22.6342 8.53804 21.45 7.61847 20.7818L1.20282 16.1206C-0.853394 14.6267 0.20336 11.3743 2.74498 11.3743H10.6752C11.8118 11.3743 12.8192 10.6424 13.1704 9.56139L15.621 2.01934Z" />
+                </svg>
+                <svg width="37" height="35" viewBox="0 0 37 35" fill="black" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15.621 2.01934C16.4064 -0.397884 19.8261 -0.397887 20.6115 2.01934L23.0621 9.56139C23.4133 10.6424 24.4207 11.3743 25.5574 11.3743H33.4876C36.0292 11.3743 37.0859 14.6267 35.0297 16.1206L28.6141 20.7818C27.6945 21.45 27.3097 22.6342 27.661 23.7152L30.1115 31.2573C30.8969 33.6745 28.1303 35.6846 26.0741 34.1906L19.6584 29.5294C18.7389 28.8613 17.4937 28.8613 16.5741 29.5294L10.1585 34.1906C8.10224 35.6846 5.33562 33.6745 6.12102 31.2573L8.57158 23.7152C8.92283 22.6342 8.53804 21.45 7.61847 20.7818L1.20282 16.1206C-0.853394 14.6267 0.20336 11.3743 2.74498 11.3743H10.6752C11.8118 11.3743 12.8192 10.6424 13.1704 9.56139L15.621 2.01934Z" />
+                </svg>
+                <svg width="37" height="35" viewBox="0 0 37 35" fill="black" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15.621 2.01934C16.4064 -0.397884 19.8261 -0.397887 20.6115 2.01934L23.0621 9.56139C23.4133 10.6424 24.4207 11.3743 25.5574 11.3743H33.4876C36.0292 11.3743 37.0859 14.6267 35.0297 16.1206L28.6141 20.7818C27.6945 21.45 27.3097 22.6342 27.661 23.7152L30.1115 31.2573C30.8969 33.6745 28.1303 35.6846 26.0741 34.1906L19.6584 29.5294C18.7389 28.8613 17.4937 28.8613 16.5741 29.5294L10.1585 34.1906C8.10224 35.6846 5.33562 33.6745 6.12102 31.2573L8.57158 23.7152C8.92283 22.6342 8.53804 21.45 7.61847 20.7818L1.20282 16.1206C-0.853394 14.6267 0.20336 11.3743 2.74498 11.3743H10.6752C11.8118 11.3743 12.8192 10.6424 13.1704 9.56139L15.621 2.01934Z" />
+                </svg>
+                <svg width="37" height="35" viewBox="0 0 37 35" fill="black" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15.621 2.01934C16.4064 -0.397884 19.8261 -0.397887 20.6115 2.01934L23.0621 9.56139C23.4133 10.6424 24.4207 11.3743 25.5574 11.3743H33.4876C36.0292 11.3743 37.0859 14.6267 35.0297 16.1206L28.6141 20.7818C27.6945 21.45 27.3097 22.6342 27.661 23.7152L30.1115 31.2573C30.8969 33.6745 28.1303 35.6846 26.0741 34.1906L19.6584 29.5294C18.7389 28.8613 17.4937 28.8613 16.5741 29.5294L10.1585 34.1906C8.10224 35.6846 5.33562 33.6745 6.12102 31.2573L8.57158 23.7152C8.92283 22.6342 8.53804 21.45 7.61847 20.7818L1.20282 16.1206C-0.853394 14.6267 0.20336 11.3743 2.74498 11.3743H10.6752C11.8118 11.3743 12.8192 10.6424 13.1704 9.56139L15.621 2.01934Z" />
+                </svg>
+                <svg width="37" height="35" viewBox="0 0 37 35" fill="black" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M15.621 2.01934C16.4064 -0.397884 19.8261 -0.397887 20.6115 2.01934L23.0621 9.56139C23.4133 10.6424 24.4207 11.3743 25.5574 11.3743H33.4876C36.0292 11.3743 37.0859 14.6267 35.0297 16.1206L28.6141 20.7818C27.6945 21.45 27.3097 22.6342 27.661 23.7152L30.1115 31.2573C30.8969 33.6745 28.1303 35.6846 26.0741 34.1906L19.6584 29.5294C18.7389 28.8613 17.4937 28.8613 16.5741 29.5294L10.1585 34.1906C8.10224 35.6846 5.33562 33.6745 6.12102 31.2573L8.57158 23.7152C8.92283 22.6342 8.53804 21.45 7.61847 20.7818L1.20282 16.1206C-0.853394 14.6267 0.20336 11.3743 2.74498 11.3743H10.6752C11.8118 11.3743 12.8192 10.6424 13.1704 9.56139L15.621 2.01934Z" />
+                </svg>
+                                                                                                                                                                                                                 
+            </div>
+            <div class="price-rating">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </section>
+        <form class="reservation-form">
+            <h2 class="title">Create Reservation</h2>
+
+            <label class="label-general" for="reservation-name">
+                <label for="reservation-name">Reservation Name</label>
+                <input type="text" name="reservation-name" id="reservation-name" value="John Smith" />
+            </label>
+
+            <label class="label-general" for="reservation-date">
+                Reservation Date
+                <input type="date" name="reservation-date" id="reservation-date" value="2021-01-06" />
+            </label>
+
+            <fieldset>
+                <legend>Time</legend>
+                <input id="time-1" type="radio" name="reservation-time" checked />
+                <label for="time-1">
+                    6:30 PM
+                </label>
+                <input id="time-2" type="radio" name="reservation-time" />
+                <label for="time-2">
+                    7:00 PM
+                </label>
+                <input id="time-3" type="radio" name="reservation-time" />
+                <label for="time-3">
+                    7:30 PM
+                </label>
+                <input id="time-4" type="radio" name="reservation-time" />
+                <label for="time-4">
+                    8:00 PM
+                </label>
+                <input id="time-5" type="radio" name="reservation-time" />
+                <label for="time-5">
+                    8:30 PM
+                </label>
+                <input id="time-6" type="radio" name="reservation-time" />
+                <label for="time-6">
+                    9:00 PM
+                </label>
+                <input id="time-7" type="radio" name="reservation-time" />
+                <label for="time-7">
+                    9:30 PM
+                </label>
+            </fieldset>
+
+            <label class="label-general" for="party-size">
+                Party Size
+                <input type="number" name="party-size" id="party-size" value="3" />
+            </label>
+
+            <label for="">
+                <input type="checkbox" name="" id="">
+                Agree to Allow Restaurant to Contact You.
+            </label>
+            <button type="submit">Create Reservation</button>
+
+            <div class="confirmation-message" hidden>
+                <p>Reservation Confirmed!</p>
+            </div>
+        </form>
+        <script>
+            // Handles the submission of the form and shows a confirmation of the booking. This will not stay here for production.
+            (function() {
+                const submitButton = document.querySelector('.reservation-form > [type=submit]');
+                submitButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    console.log('Submitting...');
+
+
+                    let confirmationMessage = document.querySelector('.confirmation-message')
+                    confirmationMessage.hidden = false;
+                    setTimeout(() => {
+                        confirmationMessage.hidden = true;
+                    }, 5000);
+                });
+            })();
+        </script>
+    </main>
+</body>
+</html>

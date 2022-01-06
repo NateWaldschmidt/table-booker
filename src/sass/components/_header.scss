@@ -36,6 +36,7 @@ body > header {
 
         height:        $header-height;
         border-radius: 0 0 10px 10px;
+        border-bottom: 1px solid gray;
 
         background-color: rgba(var.$color-bg-dark, 0.25);
         backdrop-filter:  blur(50px);
