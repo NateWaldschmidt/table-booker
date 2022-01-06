@@ -1,4 +1,6 @@
 @use 'utilities/global';
+@use 'components/header';
+@use 'components/footer';
 @use 'utilities/variables' as var;
 @use 'components/input';
 
@@ -193,6 +195,7 @@ h1 {
     // Colors the address a slightly lighter color.
     & > *:nth-child(2) {
         color: lightgray;
+        font-size: 0.75rem;
     }
 }
 
@@ -200,6 +203,7 @@ h1 {
 .available-times {
     display:        grid;
     grid-auto-flow: column;
+    grid-auto-columns: 6rem;
     align-items:    center;
     gap:            1rem;
 
@@ -215,7 +219,6 @@ h1 {
         align-items:     center;
         justify-content: center;
 
-        width:          6rem;
         height:        30px;
         border-radius:  5px;
 
