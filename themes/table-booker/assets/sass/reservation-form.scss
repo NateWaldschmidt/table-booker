@@ -1,0 +1,208 @@
+@use 'utilities/global';
+@use 'utilities/variables' as var;
+@use 'components/input';
+@use 'components/popup-message';
+
+body > header {
+    display: none !important;
+}
+
+main {
+    display:               grid;
+    grid-template-columns: repeat(2, 1fr);
+    align-items:           center;
+
+    height: 100vh;
+}
+
+.restaurant-info {
+    display:        flex;
+    flex-direction: column;
+    align-items:    center;
+    
+    position: relative;
+
+    background-color: var.$color-primary;
+
+    height:     100vh;
+    padding:    4rem;
+    box-sizing: border-box;
+
+    .btn-cancel {
+        position: absolute;
+        top:      1rem;
+        left:     1rem;
+
+        color:       var.$color-font-light;
+        font-family: 'Roboto', sans-serif;
+    }
+
+    & > h1 {
+        margin:        0;
+
+        color:       var.$color-font-light;
+        font-family: 'Roboto', sans-serif;
+        font-size:   3.5rem;
+        text-align:  center;
+        text-shadow: 4px 3px 0 rgba(var.$color-primary-light, 0.25);
+    }
+
+    & > .restaurant-photo {
+        width:         480px;
+        height:        300px;
+        margin:          3rem 0;
+        border-radius:  10px;
+        border:          5px solid var.$color-primary-light;
+
+        box-shadow: 25px 25px 0 var.$color-primary-light;
+
+        object-fit: cover;
+    }
+
+    & > .restaurant-rating {
+        display:         flex;
+        justify-content: center;
+        gap:             0.75rem;
+
+        & > * {
+            width:  32px;
+            height: 32px;
+
+            fill: #ffd000;
+
+            filter: drop-shadow(3px 3px 0 rgba(#ffd000, 0.25))
+        }
+    }
+
+    & > .price-rating {
+        display:         flex;
+        align-items: center;
+        justify-content: center;
+        gap:             0.75rem;
+
+        margin-top: 3rem;
+
+        & > * {
+            width:  32px;
+            height: 32px;
+
+            color:       #90BE6D;
+            font-family: 'Roboto', sans-serif;
+            font-size:    32px;
+            font-weight: 900;
+            text-align:  center;
+            text-shadow: 3px 3px 0 rgba(#90BE6D, 0.45);
+        }
+    }
+}
+
+.reservation-form {
+    display:        flex;
+    flex-direction: column;
+    gap:            1.5rem;
+
+    width:         100%;
+    max-width:     470px;
+    margin:          0 auto;
+    padding:         1rem;
+    box-sizing:    border-box;
+    border-radius:  10px;
+
+    background-color: rgba(var.$color-bg-dark, 0.25);
+
+    & > .title {
+        margin: 0;
+
+        color:       var.$color-font-light;
+        font-family: 'Roboto', sans-serif;
+        font-size:     2rem;
+        font-weight: 900;
+    }
+
+    input:not([type=checkbox]) {
+        height:  40px;
+        padding:  0.5rem;
+    }
+
+    label, legend {
+        color:       var.$color-font-light;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 700;
+    }
+
+    & > .label-general {
+        display: flex;
+        flex-direction: column;
+    }
+
+    // Contains all of the available reservation times.
+    fieldset {
+        display: flex;
+        gap:     0.5rem;
+
+        min-width:   0;
+        max-width: 100%;
+        margin:      0;
+        padding:     0 0 0.25rem 0;
+        border:    none;
+
+        overflow-x: auto;
+
+        // Scroll bar styles.
+        &::-webkit-scrollbar {
+            width:         4px;
+            height:        4px;
+            border-radius: 5px;
+        }
+        &::-webkit-scrollbar-thumb {
+            border-radius: 5px;
+
+            background-color: gray;
+
+            z-index: 1;
+        }
+
+        input[type=radio] {
+            display: none;
+        }
+        input:checked + label {
+            background-color: var.$color-primary;
+
+            color: var.$color-font-light;
+        }
+
+        label {
+            cursor: pointer;
+
+            user-select: none;
+
+            min-width:     4.5rem;
+            padding:       0.25rem 0.5rem;
+            border-radius: 5px;
+
+            background-color: white;
+
+            color:       var.$color-primary-dark;
+            font-size:     0.875rem;
+            font-weight: 400;
+            text-align:  center;
+
+            transition: color ease 250ms, background-color ease 250ms;
+        }
+    }
+
+    [type=submit] {
+        cursor: pointer;
+
+        height:        40px;
+        border:        none;
+        border-radius: 5px;
+
+        background-color: var.$color-primary;
+
+        color: var.$color-font-light;
+        font-family: 'Roboto', sans-serif;
+        font-size:     0.875rem;
+        font-weight: 700;
+    }
+}

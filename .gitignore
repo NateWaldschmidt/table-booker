@@ -1,0 +1,16 @@
+# Ignores everything.
+*
+
+# Except for the theme and plugin.
+!.gitignore
+!themes
+!themes/table-booker
+!themes/table-booker/**
+!plugins
+!plugins/table-booker-system
+!plugins/table-booker-system/**
+
+# Things to ignore within the theme and plugin.
+themes/table-booker/assets/css
+themes/table-booker/node_modules
+*.log

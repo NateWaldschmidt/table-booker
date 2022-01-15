@@ -1,0 +1,154 @@
+@use 'utilities/global';
+@use 'components/header';
+@use 'components/footer';
+@use 'utilities/variables' as var;
+@use 'components/input';
+@use 'components/popup-message';
+
+//login page image formating
+img {
+    position:relative; 
+    top:      -100px;
+
+    max-height:      590px;
+    width:           100%;
+    object-fit:      cover;
+    object-position:   0 70%;
+    border-radius:     0 0 10px 10px;
+
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+
+    z-index: 0;
+}
+
+main {
+    display:        flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+
+
+#login-form{
+    position: relative;
+    top: -13rem;
+
+    display:         flex;
+    flex-direction:  column;
+    align-items:     center;
+    justify-content: space-around;
+
+    width:         40%;
+    max-width:     var.$wrap-val;
+    padding:         2rem;
+    box-sizing:    border-box;
+    border-radius:  10px;
+
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+
+    &::before {
+        content: "";
+
+        position: absolute;
+        inset:    0 0 0 0;
+    
+        width:         100%;
+        max-width:     var.$wrap-val;
+        padding:         1rem;
+        box-sizing:    border-box;
+        border-radius:  10px;
+
+        background-color: rgba(var.$color-bg-dark, 0.25);
+        backdrop-filter:  blur(20px);
+
+        z-index: -1;
+    }
+    @media screen and (var.$mobile-only) {
+        flex-direction: column;
+        gap:            0.5rem;
+
+        width: min-content;
+    }
+
+    & > .title {
+        width: 100%;
+        margin: 0;
+
+        color:       var.$color-font-light;
+        font-family: 'Roboto', sans-serif;
+        font-size:     2rem;
+        font-weight: 900;
+        text-align: left;
+    }
+
+    & > label {
+        display:        flex;
+        flex-direction: column;
+        align-self: center;
+
+        height:         100%;
+
+        color:       var.$color-font-light;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 700;
+    }
+    //Input forms.
+    input {
+        width:         20rem;
+        height:        40px;
+        margin-top:     0.5rem;
+        margin-bottom: 0.5rem;
+        padding:       0 0.5rem;
+        box-sizing:    border-box;
+        border-radius:  5px;
+    }
+
+    // All Inputs and Submit button.
+    & > * {
+        height:         80px;
+        box-sizing:    border-box;
+        border:        none;
+    }
+
+    // Submit button.
+    & > [type=submit] {
+        width:         12rem;
+        height:        50px;
+        border-radius:  5px;
+        margin-top: 30px;
+        background-color: var.$color-primary;
+
+        color:       var.$color-font-light;
+        font-family: 'Roboto', sans-serif;
+        font-size:     1.125rem;
+        font-weight: 700;
+        align-self: center;
+        
+    }
+}
+
+.image-text-welcome{
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    align-self: flex-start;
+
+    font-family: 'Roboto', sans-serif;
+    color:       var.$color-primary-light;
+    font-size:   2.5rem;
+    font-weight: 1000;
+}
+.image-text-existing {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    align-self: flex-start;
+
+    font-family: 'Roboto';
+    color:       var.$color-primary-light;
+    font-size:   1.5rem;
+    font-weight: 1000;
+}

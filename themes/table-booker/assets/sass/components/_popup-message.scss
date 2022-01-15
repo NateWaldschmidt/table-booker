@@ -1,0 +1,42 @@
+@use '../utilities/variables' as var;
+
+.confirmation-message {
+    position: fixed;
+    top: 1rem;
+    left: 50%;
+    transform: translate(-50%, 0);
+
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+
+    min-width:     30rem;
+    border:         1px solid gray;
+    border-radius: 10px;
+
+    background-color: rgba(var.$color-bg-dark, 0.25);
+    backdrop-filter:  blur(60px);
+
+    color:       var.$color-font-light;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+
+    animation-name:            slide-in;
+    animation-duration:        300ms;
+    animation-timing-function: ease;
+
+    z-index: 10;
+
+    &[hidden] {
+        display: none;
+    }
+}
+
+@keyframes slide-in {
+    0% {
+        transform: translate(-50%, -10rem);
+    }
+    100% {
+        transform: translate(-50%, 0);
+    }
+}

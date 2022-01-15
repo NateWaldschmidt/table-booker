@@ -1,0 +1,32 @@
+/// A light version of the primary color.
+$color-primary-light: #FEF2EC;
+
+/// Well, this is the, uh, primary color.
+$color-primary:       #BF2239;
+
+/// Um. Dark primary color. ;o
+$color-primary-dark:  #23060A;
+
+/// The light color for background type elements.
+$color-bg-light: #ffffff;
+
+/// The dark color for background type elements.
+$color-bg-dark:  #333333;
+
+/// Elements for font related things, may also be used with a border.
+$color-font-light: #ffffff;
+
+/// Dark color for font related elements and things.
+$color-font-dark:  #333333;
+
+/// The main content width.
+$wrap-val: 1180px;
+
+/// The margin for main content on mobile. This only matters on the sides of the content.
+$mobile-margin: 0.5rem;
+
+/// Used in media queries for mobile only content.
+$mobile-only: "max-width: 1180px";
+
+/// Used in media queries for desktop only content.
+$desktop-only: "min-width: 1181px";

@@ -1,0 +1,314 @@
+@use 'utilities/global';
+@use 'components/header';
+@use 'components/footer';
+@use 'utilities/variables' as var;
+@use 'components/input';
+
+// Landing page image.
+img {
+    position: relative; 
+    top:      -100px;
+
+    max-height:      590px;
+    width:           100%;
+    object-fit:      cover;
+    object-position:   0 70%;
+    border-radius:     0 0 10px 10px;
+
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+
+    z-index: 0;
+}
+
+// Aligns all of the content in the center of the page.
+main {
+    display:        flex;
+    flex-direction: column;
+    align-items:    center;
+}
+
+// The main way of creating a reservation when first visiting the website.
+#reservation-form {
+    position: relative;
+    top:      -8.5rem;
+
+    display:         flex;
+    align-items:     center;
+    justify-content: space-between;
+
+    width:         100%;
+    max-width:     var.$wrap-val;
+    padding:         0.5rem;
+    box-sizing:    border-box;
+    border-radius:  10px;
+
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+
+    z-index: 1;
+
+    // Adds transparent background.
+    &::before {
+        content: "";
+
+        // Positioned within the actual form.
+        position: absolute;
+        inset:    0 0 0 0;
+
+        width:         100%;
+        max-width:     var.$wrap-val;
+        padding:         0.5rem;
+        box-sizing:    border-box;
+        border-radius:  10px;
+
+        background-color: rgba(var.$color-bg-dark, 0.25);
+        backdrop-filter:  blur(50px);
+
+        z-index: -1;
+    }
+
+    @media screen and (var.$mobile-only) {
+        flex-direction: column;
+        gap:            0.5rem;
+
+        width: min-content;
+    }
+    
+    & > label {
+        display:        flex;
+        flex-direction: column;
+
+        height:         100%;
+
+        color:       var.$color-font-light;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 700;
+    }
+
+    // Inputs should be slightly bigger than the submit button.
+    input {
+        width:         14rem;
+        height:        50px;
+        margin-top:     0.5rem;
+        padding:       0 0.5rem;
+        box-sizing:    border-box;
+        border-radius:  5px;
+    }
+
+    // All inputs and submit buttons follow this structure.
+    & > * {
+        height:         80px;
+        box-sizing:    border-box;
+        border:        none;
+    }
+
+    // Submit button.
+    & > [type=submit] {
+        width:         12rem;
+        height:        50px;
+        border-radius:  5px;
+
+        background-color: var.$color-primary;
+
+        color:       var.$color-font-light;
+        font-family: 'Roboto', sans-serif;
+        font-size:     1.125rem;
+        font-weight: 700;
+
+        @media screen and (var.$desktop-only) {
+            align-self: flex-end;
+        }
+        @media screen and (var.$mobile-only) {
+            margin-top: 0.5rem;
+        }
+    }
+}
+
+h1 {
+    margin:        0;
+    margin-bottom: 1rem;
+    align-self:    flex-start;
+
+    font-family: 'Roboto', sans-serif;
+    color:       var.$color-primary-dark;
+    font-size:   2.25rem;
+}
+
+// The white background for all of the available restaurants.
+#available-reservations {
+    position: relative;
+    top:      -5rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding:         1rem;
+    width:         100%;
+    max-width:     calc(#{var.$wrap-val} - 2rem); // Slightly smaller than the $wrap value.
+    box-sizing:    border-box;
+    border-radius:  10px;
+
+    background-color: var.$color-bg-light;
+    box-shadow:       rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+
+    overflow: visible;
+
+    @media screen and (var.$mobile-only) {
+        max-width: calc(100vw - (#{var.$mobile-margin} * 4));
+        margin: 0 auto;
+    }
+}
+
+// The gray bar for all of the restaurant reservations that are available.
+.restaurant-container {
+    display: flex;
+
+    width:         var.$wrap-val;
+    padding:       1rem;
+    box-sizing:    border-box;
+    border-radius: 10px;
+    
+    background-color: var.$color-bg-dark;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+
+    // Adds spacing between all of the rows of restaurants.
+    &:not(:last-of-type) {
+        margin-bottom: 1rem;
+    }
+
+    @media screen and (var.$mobile-only) {
+        max-width: calc(100vw - (#{var.$mobile-margin} * 2));
+    }
+}
+
+// Stacks te restaurant name and address on top of each other.
+.restaurant-title-container {
+    display:        flex;
+    flex-direction: column;
+
+    width: 10rem;
+
+    font-family: 'Roboto', sans-serif;
+    color:       var.$color-font-light;
+    font-size:   1rem;
+
+    // Colors the address a slightly lighter color.
+    & > *:nth-child(2) {
+        color: lightgray;
+        font-size: 0.75rem;
+    }
+}
+
+// The list of available times.
+.available-times {
+    display:        grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 6rem;
+    align-items:    center;
+    gap:            1rem;
+
+    margin: 0 1rem;
+    padding: 0;
+
+    list-style: none;
+
+    overflow: auto;
+
+    & a {
+        display:         flex;
+        align-items:     center;
+        justify-content: center;
+
+        height:        30px;
+        border-radius:  5px;
+
+        background-color: var.$color-bg-light;
+
+        color:           var.$color-primary-dark;
+        font-family:     'Roboto', sans-serif;
+        font-size:       0.875rem;
+        text-decoration: none;
+
+        transition: all ease-out 200ms;
+
+        &:not(:active):hover {
+            color: var.$color-primary;
+        }
+        &:active {
+            transition: all ease-out 50ms;
+            
+            background-color: var.$color-primary;
+            
+            color:            var.$color-font-light;
+
+            filter: brightness(85%);
+        }
+    }
+}
+
+.restaurant-categories {
+    position: relative;
+    top:      -5.5rem;
+
+    width:         100%;
+    max-width:     #{var.$wrap-val}; // Slightly smaller than the $wrap value.
+    margin:  5rem 0;
+    padding: 3rem calc((100vw - #{var.$wrap-val}) / 2);
+
+    background-color: var.$color-primary;
+    box-shadow:       rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+
+    @media screen and (var.$mobile-only) {
+        display:        flex;
+        flex-direction: column;
+        align-items:    center;
+    }
+
+    & > h2 {
+        margin-top:    0;
+        margin-bottom: 3rem;
+
+        color:       var.$color-font-light;
+        font-size:   2.25rem;
+        font-family: 'Roboto', sans-serif;
+
+        @media screen and (var.$mobile-only) {
+            margin: 0 var.$mobile-margin 3rem var.$mobile-margin;
+        }
+    }
+
+    ul {
+        display:               grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap:                   1rem;
+
+        margin:  0;
+        padding: 0;
+
+        list-style: none;
+        @media screen and (var.$mobile-only) {
+            grid-template-columns: 1fr 1fr;
+
+            width:     100%;
+            max-width: calc(100vw - (#{var.$mobile-margin} * 2));;
+        }
+
+        a {
+            display:         flex;
+            align-items:     center;
+            justify-content: center;
+
+            width:         100%;
+            height:        50px;
+            border-radius:  5px;
+
+            background-color: var.$color-bg-light;
+            box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+
+            color:           var.$color-primary-dark;
+            font-family:     'Roboto', sans-serif;
+            font-weight:     700;
+            text-decoration: none;
+        }
+    }
+}
