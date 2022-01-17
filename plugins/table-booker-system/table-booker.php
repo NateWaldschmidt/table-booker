@@ -72,7 +72,9 @@ if (!class_exists('TB_Init')) {
         }
 
         /**
-         * Creates the restaurant post type.
+         * Creates the restaurant post type. This will assign
+         * the necessary labels and permissions to the 
+         * restaurant post type.
          * 
          * @static
          */
@@ -97,7 +99,40 @@ if (!class_exists('TB_Init')) {
                 'rewrite'             => true,
                 'query_var'           => true,
                 'supports'            => ['title'],
+                'capabilities'        => [
+                    'publish_posts'       => 'publish_restaurant',
+                    'edit_post'           => 'edit_restaurant',
+                    'edit_others_posts'   => 'edit_others_restaurants',
+                    'delete_post '        => 'delete_restaurant',
+                    'delete_others_posts' => 'delete_others_restaurants',
+                    'read_post'           => 'read_restaurant',
+                ],
             ]);
+
+            // Assigns the new permissions to the custom restaurant owner user type.
+            self::assign_restaurant_perms();
+        }
+
+        /**
+         * Assigns the different restaurant meta capabilities
+         * to the newly defined role, restaurant owner.
+         * 
+         * @static
+         */
+        static function assign_restaurant_perms():void {
+            // Creates a new role called restaurant owner.
+            $role = add_role('restaurant_owner', 'Restaurant Owner', array());
+
+            // If the role already exists, $role is null.
+            if ($role !== null) {
+                // Adds permissions to the new role.
+                $role->add_cap('publish_restaurant',        true);
+                $role->add_cap('edit_restaurant',           true);
+                $role->add_cap('edit_others_restaurants',   false);
+                $role->add_cap('delete_restaurant',         true);
+                $role->add_cap('delete_others_restaurants', false);
+                $role->add_cap('read_restaurant',           true);
+            }
         }
 
         /**
@@ -130,6 +165,8 @@ if (!class_exists('TB_Init')) {
 
         /**
          * Adds all of the shortcodes for the plugin.
+         * Requirements for the files should be at the top of
+         * this file.
          * 
          * @static
          */
