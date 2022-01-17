@@ -1,6 +1,6 @@
 <?php
     add_action('wp_head', function() {
-        ?><link rel="stylesheet" href="<?= get_template_directory_uri(); ?>/assets/css/reservation-form.css?=<?= filemtime(get_template_directory().'/assets/css/reservation-form.css'); ?>">
+        ?><link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/reservation-form.css?=<?php echo filemtime(get_template_directory().'/assets/css/reservation-form.css'); ?>">
         <?php
     });
     get_header();
@@ -9,8 +9,8 @@
 ?>
 <section class="restaurant-info">
     <a class="btn-cancel" href="/wordpress">Cancel</a>
-    <h1><?= esc_html(the_title()); ?></h1>
-    <img class="restaurant-photo" src="<?= get_template_directory_uri(); ?>/assets/images/cafe.jpg" alt="Cafe Exterior.">
+    <h1><?php echo esc_html(the_title()); ?></h1>
+    <img class="restaurant-photo" src="<?php echo get_template_directory_uri(); ?>/assets/images/cafe.jpg" alt="Cafe Exterior.">
     <div class="restaurant-rating">
         <?php for($i = 0; $i < 5; $i++): ?>
             <svg width="37" height="35" viewBox="0 0 37 35" fill="black" xmlns="http://www.w3.org/2000/svg">

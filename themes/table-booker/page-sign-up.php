@@ -1,13 +1,13 @@
 <?php
     /* Template Name: Sign Up Page */
     add_action('wp_head', function() {
-        ?><link rel="stylesheet" href="<?= get_template_directory_uri(); ?>/assets/css/sign-up.css?=<?= filemtime('/assets/css/reservation-form.css'); ?>">
+        ?><link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/sign-up.css?=<?php echo filemtime('/assets/css/reservation-form.css'); ?>">
         <?php
     });
     get_header();
 ?>
 
-<img src="<?= get_template_directory_uri(); ?>/assets/images/fancy-restaurant.webp" style="width: 100%;">
+<img src="<?php echo get_template_directory_uri(); ?>/assets/images/fancy-restaurant.webp" style="width: 100%;">
 <div class="image-text-existing">
     First Time?
 </div>

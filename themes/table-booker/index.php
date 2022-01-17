@@ -1,11 +1,11 @@
 <?php
     add_action('wp_head', function() { ?>
-        <link rel="stylesheet" href="<?= get_template_directory_uri(); ?>/assets/css/index.css?v=<?= filemtime(get_template_directory().'/assets/css/index.css'); ?>">
+        <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/index.css?v=<?php echo filemtime(get_template_directory().'/assets/css/index.css'); ?>">
     <?php });
     get_header();
 ?>
 
-<img src="<?= get_template_directory_uri(); ?>/assets/images/landing.jpg" alt="Warm restaurant booth seating.">
+<img src="<?php echo get_template_directory_uri(); ?>/assets/images/landing.jpg" alt="Warm restaurant booth seating.">
     <form id="reservation-form" action="">
         <label for="reservation-date">
             Reservation Date

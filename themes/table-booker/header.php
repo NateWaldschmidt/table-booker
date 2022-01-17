@@ -10,12 +10,12 @@
 <?php wp_body_open(); ?>
 <header>
 	<div class="header-menu">
-		<a id="home-logo-link" href="<?= esc_url(bloginfo('url')); ?>"><?= bloginfo('name'); ?></a>
+		<a id="home-logo-link" href="<?php echo esc_url(bloginfo('url')); ?>"><?php echo bloginfo('name'); ?></a>
 		<!-- <button type="button">+</button> -->
 	</div>
 	<div class="account-container">
-		<a id="header-login" href="<?= esc_url(bloginfo('url').'/login') ?>">Login</a>
-		<a id="header-signup" href="<?= esc_url(bloginfo('url').'/sign-up') ?>">Sign Up</a>
+		<a id="header-login" href="<?php echo esc_url(bloginfo('url').'/login') ?>">Login</a>
+		<a id="header-signup" href="<?php echo esc_url(bloginfo('url').'/sign-up') ?>">Sign Up</a>
 	</div>
 </header>
 

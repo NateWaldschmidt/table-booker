@@ -35,21 +35,21 @@ function tb_new_reservation_form($atts = [], $content = null, $tag) {
     ob_start(); ?>
         <form>
             <?php // The heading for the form. ?>
-            <<?= esc_html($tb_atts['heading_level']); ?> class="tb-heading">
-                <?= esc_html($tb_atts['title']); ?>
-            </<?= esc_html($tb_atts['heading_level']); ?>>
+            <<?php echo esc_html($tb_atts['heading_level']); ?> class="tb-heading">
+                <?php echo esc_html($tb_atts['title']); ?>
+            </<?php echo esc_html($tb_atts['heading_level']); ?>>
 
             <?php // The paragraph describing the form if it was supplied. ?>
             <?php if (!is_null($content)): ?>
                 <p class="tb-description">
-                    <?= esc_html($content); ?>
+                    <?php echo esc_html($content); ?>
                 </p>
             <?php endif; ?>
 
             <input id="tb-reservation-name" name="tb-reservation-name" type="text">
 
             <button id="tb-res-submit" class="tb-btn-submit" name="tb-res-submit" type="submit">
-                <?= esc_html($tb_atts['submit_title']); ?>
+                <?php echo esc_html($tb_atts['submit_title']); ?>
             </button>
 
             <script>

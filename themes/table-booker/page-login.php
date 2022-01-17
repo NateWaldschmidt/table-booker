@@ -1,13 +1,13 @@
 <?php
     /* Template Name: Login Page */
     add_action('wp_head', function() {
-        ?><link rel="stylesheet" href="<?= get_template_directory_uri(); ?>/assets/css/login.css?=<?= filemtime('/assets/css/login.css'); ?>">
+        ?><link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/login.css?=<?php echo filemtime('/assets/css/login.css'); ?>">
         <?php
     });
     get_header();
 ?>
 
-<img src="<?= get_template_directory_uri(); ?>/assets/images/burger-plates.webp">
+<img src="<?php echo get_template_directory_uri(); ?>/assets/images/burger-plates.webp">
 
 <h1>
     <div class="image-text-existing">Existing User?</div>
