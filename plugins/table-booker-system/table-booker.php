@@ -102,7 +102,8 @@ if (!class_exists('TB_Init')) {
 
         /**
          * Creates the taxonomy for restaurant 
-         * categories.
+         * categories. This allows the categorization of
+         * different types of restaurants.
          * 
          * @static
          */
