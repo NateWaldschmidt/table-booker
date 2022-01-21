@@ -72,7 +72,9 @@ if (!class_exists('TB_Init')) {
         }
 
         /**
-         * Creates the restaurant post type.
+         * Creates the restaurant post type. This will assign
+         * the necessary labels and permissions to the 
+         * restaurant post type.
          * 
          * @static
          */
@@ -97,12 +99,39 @@ if (!class_exists('TB_Init')) {
                 'rewrite'             => true,
                 'query_var'           => true,
                 'supports'            => ['title'],
+                
             ]);
+
+            // Assigns the new permissions to the custom restaurant owner user type.
+            self::assign_restaurant_perms();
+        }
+
+        /**
+         * Assigns the different restaurant meta capabilities
+         * to the newly defined role, restaurant owner.
+         * 
+         * @static
+         */
+        static function assign_restaurant_perms():void {
+            // Creates a new role called restaurant owner.
+            $role = add_role('restaurant_owner', 'Restaurant Owner', array());
+
+            // If the role already exists, $role is null.
+            if ($role !== null) {
+                // Adds permissions to the new role.
+                $role->add_cap('publish_restaurant',        true);
+                $role->add_cap('edit_restaurant',           true);
+                $role->add_cap('edit_others_restaurants',   false);
+                $role->add_cap('delete_restaurant',         true);
+                $role->add_cap('delete_others_restaurants', false);
+                $role->add_cap('read_restaurant',           true);
+            }
         }
 
         /**
          * Creates the taxonomy for restaurant 
-         * categories.
+         * categories. This allows the categorization of
+         * different types of restaurants.
          * 
          * @static
          */
@@ -129,44 +158,14 @@ if (!class_exists('TB_Init')) {
 
         /**
          * Adds all of the shortcodes for the plugin.
+         * Requirements for the files should be at the top of
+         * this file.
          * 
          * @static
          */
         static function add_shortcodes() {
 
         }
-
-        /**
-         * Creates the reservation post type 
-         * which would be a child of the 
-         * restaurant post type.
-         * 
-         * @static
-         */
-        // static function add_reservation_post_type():void {
-        //     register_post_type('reservation', [
-        //         'labels' => [
-        //             'name'          => 'Reservations',
-        //             'singular_name' => 'Reservation',
-        //             'add_new'       => 'Add New Reservation',
-        //             'add_new_item'  => 'Add New Reservation',
-        //             'edit_item'     => 'Edit Reservation',
-        //             'all_items'     => 'All Reservations',
-        //             'search_items'  => 'Search Reservations',
-        //         ],
-        //         'public'              => false,
-        //         'hierarchical'        => true,
-        //         'publicly_queryable'  => false,
-        //         'exclude_from_search' => true,
-        //         'show_ui'             => true,
-        //         'show_in_menu'        => true,
-        //         'has_archive'         => true,
-        //         'rewrite'             => true,
-        //         'query_var'           => true,
-        //         'supports'            => ['title'],
-        //         'delete_with_user'    => true
-        //     ]);
-        // }
 
         /**
          * Creates the restaurant meta box section for

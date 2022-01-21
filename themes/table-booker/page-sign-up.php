@@ -1,7 +1,7 @@
 <?php
     /* Template Name: Sign Up Page */
     add_action('wp_head', function() {
-        ?><link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/sign-up.css?=<?php echo filemtime('/assets/css/reservation-form.css'); ?>">
+        ?><link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/sign-up.css?=<?php echo filemtime(get_template_directory().'/assets/css/reservation-form.css'); ?>">
         <?php
     });
     get_header();
