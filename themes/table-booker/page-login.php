@@ -1,7 +1,7 @@
 <?php
     /* Template Name: Login Page */
     add_action('wp_head', function() {
-        ?><link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/login.css?=<?php echo filemtime('/assets/css/login.css'); ?>">
+        ?><link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/login.css?=<?php echo filemtime(get_template_directory().'/assets/css/login.css'); ?>">
         <?php
     });
     get_header();

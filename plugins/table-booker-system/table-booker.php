@@ -99,14 +99,7 @@ if (!class_exists('TB_Init')) {
                 'rewrite'             => true,
                 'query_var'           => true,
                 'supports'            => ['title'],
-                'capabilities'        => [
-                    'publish_posts'       => 'publish_restaurant',
-                    'edit_post'           => 'edit_restaurant',
-                    'edit_others_posts'   => 'edit_others_restaurants',
-                    'delete_post '        => 'delete_restaurant',
-                    'delete_others_posts' => 'delete_others_restaurants',
-                    'read_post'           => 'read_restaurant',
-                ],
+                
             ]);
 
             // Assigns the new permissions to the custom restaurant owner user type.
