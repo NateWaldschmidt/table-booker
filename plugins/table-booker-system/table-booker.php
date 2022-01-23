@@ -99,7 +99,15 @@ if (!class_exists('TB_Init')) {
                 'rewrite'             => true,
                 'query_var'           => true,
                 'supports'            => ['title'],
-                
+                'capabilities' => [
+                    'edit_post'          => 'edit_restaurant',
+                    'edit_posts'         => 'edit_restaurants',
+                    'edit_others_posts'  => 'edit_other_restaurants',
+                    'publish_posts'      => 'publish_restaurants',
+                    'read_post'          => 'read_restaurant',
+                    'read_private_posts' => 'read_private_restaurants',
+                    'delete_post'        => 'delete_restaurant'
+                ],
             ]);
 
             // Assigns the new permissions to the custom restaurant owner user type.
@@ -114,18 +122,40 @@ if (!class_exists('TB_Init')) {
          */
         static function assign_restaurant_perms():void {
             // Creates a new role called restaurant owner.
-            $role = add_role('restaurant_owner', 'Restaurant Owner', array());
+            $ro_role = add_role('restaurant_owner', 'Restaurant Owner', array());
 
-            // If the role already exists, $role is null.
-            if ($role !== null) {
+            // If the role already exists, $role will be null.
+            if ($ro_role !== null) {
+                $ro_role = get_role('restaurant_owner');
+
                 // Adds permissions to the new role.
-                $role->add_cap('publish_restaurant',        true);
-                $role->add_cap('edit_restaurant',           true);
-                $role->add_cap('edit_others_restaurants',   false);
-                $role->add_cap('delete_restaurant',         true);
-                $role->add_cap('delete_others_restaurants', false);
-                $role->add_cap('read_restaurant',           true);
+                $ro_role->add_cap('read',                      true);
+                $ro_role->add_cap('edit_restaurant',           true);
+                $ro_role->add_cap('edit_restaurants',          false);
+                $ro_role->add_cap('edit_others_restaurants',   false);
+                $ro_role->add_cap('publish_restaurants',       true);
+                $ro_role->add_cap('read_restaurant',           true);
+                $ro_role->add_cap('read_private_restaurants',  false);
+                $ro_role->add_cap('delete_restaurant',         true);
+                $ro_role->add_cap('delete_others_restaurants', false);
+                $ro_role->add_cap('view_admin_dashboard',      true); // Maybe remove?
             }
+
+            $admin_role = get_role('administrator');
+
+            // Adds permissions to the admin role.
+            $admin_role->add_cap('edit_restaurant',           true);
+            $admin_role->add_cap('edit_restaurants',          true);
+            $admin_role->add_cap('edit_others_restaurants',   true);
+            $admin_role->add_cap('publish_restaurants',       true);
+            $admin_role->add_cap('read_restaurant',           true);
+            $admin_role->add_cap('read_private_restaurants',  true);
+            $admin_role->add_cap('delete_restaurant',         true);
+            $admin_role->add_cap('delete_others_restaurants', true);
+        }
+
+        static function add_restaurant() {
+
         }
 
         /**
