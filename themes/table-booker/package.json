@@ -4,8 +4,12 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "sass --watch /var/www/html/wordpress/wp-content/themes/table-booker/assets/sass:/var/www/html/wordpress/wp-content/themes/table-booker/assets/css -s compressed"
+    "watch": "sass --watch /var/www/html/wordpress/wp-content/themes/table-booker/assets/sass:/var/www/html/wordpress/wp-content/themes/table-booker/assets/css -s compressed",
+    "watch-local": "sass --watch assets/sass:assets/css -s compressed"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "sass": "^1.49.0"
+  }
 }
