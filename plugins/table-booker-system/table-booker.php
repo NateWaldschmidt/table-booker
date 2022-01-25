@@ -7,8 +7,6 @@
  * Author:      Blue Group
  */
 
-require plugin_dir_path(__FILE__).'/shortcodes/sc-form-new-reservation.php';
-
 // Ensures this class is not being used anywhere else.
 if (!class_exists('TB_Init')) {
     /**
@@ -20,6 +18,7 @@ if (!class_exists('TB_Init')) {
      */
     class TB_Init {
         public function __construct() {
+            require('api/reservations.php');
 
             // Adds the restaurant post type.
             self::add_restaurant_post_type();
@@ -203,6 +202,7 @@ if (!class_exists('TB_Init')) {
          * @static
          */
         static function add_shortcodes() {
+            require plugin_dir_path(__FILE__).'/shortcodes/sc-form-new-reservation.php';
 
         }
 
