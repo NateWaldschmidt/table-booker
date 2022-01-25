@@ -29,7 +29,7 @@ class TB_Reservation_REST_API {
         }
 
         // Does the query for the data.
-        $results = $wpdb->query("
+        $results = $wpdb->get_results("
             SELECT *
             FROM {$wpdb->prefix}tb_reservations
             WHERE reservation_user_id = ".get_current_user_id().";
@@ -44,4 +44,3 @@ class TB_Reservation_REST_API {
 }
 
 add_action('rest_api_init', function() { new TB_Reservation_REST_API(); });
-
