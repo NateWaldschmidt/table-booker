@@ -61,7 +61,7 @@ class TB_Reservation_REST_API {
             return new WP_Error('invalid_user', 'Invalid User.', ['status' => 403]);
         }
 
-        $response = new WP_REST_Response($req);
+        $response = new WP_REST_Response($req->get_params());
         $response->set_status(201);
 
         return $response;
