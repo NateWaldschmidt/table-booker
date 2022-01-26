@@ -59,16 +59,15 @@ function tb_new_reservation_form($atts = [], $content = null, $tag) {
                     
                     const xhr = new XMLHttpRequest();
                     
-                    
                     xhr.addEventListener('load', (e) => {
                         console.log(e.target.responseText);
                     });
 
-                    xhr.open('get', `<?php echo esc_url(bloginfo('url')); ?>/wp-json/tb/v1/reservations`);
+                    xhr.open('POST', `<?php echo esc_url(bloginfo('url')); ?>/wp-json/tb/v1/reservations`);
 
                     xhr.setRequestHeader('X-WP-Nonce', '<?php echo esc_js(wp_create_nonce('wp_rest')); ?>');
 
-                    xhr.send();
+                    xhr.send(new FormData(e.target.closest('form')));
                 });
             </script>
         </form>
