@@ -13,7 +13,7 @@ class TB_Reservation_REST_API {
             'callback' => ['TB_Reservation_REST_API','get'],
         ]);
         register_rest_route('tb/v1', 'reservations', [
-            'methods' => 'POST',
+            'methods' => 'PUT',
             'callback' => ['TB_Reservation_REST_API','post'],
         ]);
     }
@@ -47,24 +47,103 @@ class TB_Reservation_REST_API {
     }
 
     /**
-     * This will validate the user and allow the
-     * creation of new reservation requests for 
-     * the user creating the request.
+     * This will allow the creation of now reservations
+     * and is intended for use only be restaurant
+     * owning users.
      * 
-     * @author Nathaniel Waldschmidt
+     * @static
      */
     static function post($req) {
         global $wpdb;
 
-        // Invalid user.
+        // User validation.
         if (get_current_user_id() == 0) {
             return new WP_Error('invalid_user', 'Invalid User.', ['status' => 403]);
         }
 
-        $response = new WP_REST_Response($req->get_params());
-        $response->set_status(201);
+        /** @var object The submitted data sent with the request. */
+        $req_data = $req->get_params();
+    }
+
+    /**
+     * This will validate the user and allow the 
+     * update of the reservation.  This is
+     * particularly used when a user is accepting a reservation.
+     * 
+     * @static
+     */
+    static function put($req) {
+        global $wpdb;
+
+        // User validation.
+        if (get_current_user_id() == 0) {
+            return new WP_Error('invalid_user', 'Invalid User.', ['status' => 403]);
+        }
+        
+        /** @var object The submitted data sent with the request. */
+        $req_data = $req->get_params();
+
+        /** @var array This is what will be used to insert that valid data into the database. */
+        $valid_data = array();
+
+        // Validation of the reservation name.
+        try {
+            $valid_data['reservation_name'] = self::validate_reservation_name($req_data['reservation-name']);
+        } catch (Exception $e) {
+            return new WP_Error(
+                'invalid_res_name',
+                $e->getMessage(),
+                ['status' => 400]
+            );
+        }
+
+        // Updates the requested reservation.
+        $success = $wpdb->update(
+            "{$wpdb->prefix}tb_reservations",
+            [
+                "reservation_name" => $valid_data['reservation_name'],
+                "reservation_user_id" => get_current_user_id(),
+                "reservation_status" => 2,
+                "reservation_party_size" => $valid_data['reservation_party_size'],
+                "reservation_public" => 0,
+            ], [
+                "reservation_id" => $valid_data['reservation_id'],
+            ], [
+                '%d',
+                '%s',
+                '%s',
+                '%d',
+                '%d',
+                '%d',
+                '%d',
+            ], [
+                '%d',
+            ]
+        );
+
+        /** @var WP_REST_Response This is the object sent back to the user with the success status code. */
+        $response = new WP_REST_Response();
+        $response->set_status(204);
 
         return $response;
+    }
+
+    /**
+     * Validates and sanitizes the reservation name 
+     * through the check of string length.
+     * 
+     * @static
+     */
+    static function validate_reservation_name(string $res_name) {
+        if (isset($res_name)) {
+            // Validates the length of the string.
+            if (strlen($req_data['reservation-name']) > 40) {
+                throw new Exception('Invalid reservation name. Maximum length is 40 characters.');
+            }
+
+            // Sanitizes the string.
+            return sanitize_text_field($req_data['reservation-name']);
+        }
     }
 }
 
