@@ -174,7 +174,7 @@ if (!class_exists('TB_Init')) {
          * @static
          */
         static function add_restaurant_taxonomy() {
-            register_taxonomy('category', ['restaurant'], [
+            register_taxonomy('restaurantcategory', ['restaurant'], [
                 'hierarchical' => false,
                 'labels' => [
                     'name'          => _x( 'Restaurant Type', 'taxonomy general name' ),
@@ -187,6 +187,7 @@ if (!class_exists('TB_Init')) {
                     'new_item_name' => __( 'New Restaurant Type' ),
                     'menu_name'     => __( 'Restaurant Types' ),
                 ],
+                'public'            => true,
                 'show_ui'           => true,
                 'show_in_rest'      => true,
                 'show_admin_column' => true,
