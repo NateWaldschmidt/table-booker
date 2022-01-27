@@ -10,7 +10,7 @@
 <?php wp_body_open(); ?>
 <header>
 	<div class="header-menu">
-		<a id="home-logo-link" href="<?php echo esc_url(bloginfo('url')); ?>"><?php echo bloginfo('name'); ?></a>
+		<a id="home-logo-link" href="<?php echo bloginfo('url'); ?>"><?php echo bloginfo('name'); ?></a>
 		<!-- <button type="button">+</button> -->
 	</div>
 	<div class="account-container">
