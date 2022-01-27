@@ -32,7 +32,6 @@ h1 {
     @media screen and (var.$mobile-only) {
         grid-template-columns: 1fr;
         margin: 0 var.$mobile-margin;
-        padding: 3rem calc((100vw - var.$wrap-val) / 2);
     }
 }
 
