@@ -1,4 +1,9 @@
-<?php get_header(); ?>
+<?php
+add_action('wp_head', function() { ?>
+    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/taxonomy-restaurantcategory.css?v=<?php echo filemtime(get_template_directory().'/assets/css/taxonomy-restaurantcategory.css'); ?>">
+<?php });
+get_header();
+?>
 
 <?php $term = get_queried_object();  ?>
 

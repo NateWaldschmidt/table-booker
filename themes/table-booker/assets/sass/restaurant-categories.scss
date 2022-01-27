@@ -1,0 +1,58 @@
+@use 'utilities/global';
+@use 'components/header';
+@use 'components/footer';
+@use 'utilities/variables' as var;
+
+main {
+    max-width: var.$wrap-val;
+    padding: 3rem calc((100vw - var.$wrap-val) / 2);
+    margin: 0 auto;
+
+    background-color: var.$color-primary;
+}
+
+h1 {
+    color: var.$color-font-light;
+    margin: 0 0 3rem 0;
+}
+
+.tb-category-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+
+    list-style: none;
+
+    margin: 0;
+    padding: 0;
+
+    overflow: hidden;
+    
+    @media screen and (var.$mobile-only) {
+        grid-template-columns: 1fr;
+        margin: 0 var.$mobile-margin;
+        padding: 3rem calc((100vw - var.$wrap-val) / 2);
+    }
+}
+
+.tb-category {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    height: 10rem;
+    padding: 0.5rem;
+    border-radius: 10px;
+    box-sizing: border-box;
+
+    background-color: var.$color-bg-light;
+
+    & > a {
+        color: var.$color-font-dark;
+        font-size: 1.5rem;
+        font-weight: 700;
+        text-transform: capitalize;
+        text-decoration: underline;
+    }
+}
