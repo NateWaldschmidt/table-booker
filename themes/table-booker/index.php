@@ -6,6 +6,7 @@
 ?>
 
 <img src="<?php echo get_template_directory_uri(); ?>/assets/images/landing.jpg" alt="Warm restaurant booth seating.">
+<main>
     <form id="reservation-form" action="">
         <label for="reservation-date">
             Reservation Date
@@ -92,5 +93,6 @@
             <li><a href="">Pizza</a></li>
         </ul>
     </section>
+</main>
 
 <?php get_footer(); ?>
