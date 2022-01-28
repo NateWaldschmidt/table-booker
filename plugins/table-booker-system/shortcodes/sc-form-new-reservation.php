@@ -57,15 +57,17 @@ function tb_new_reservation_form($atts = [], $content = null, $tag) {
                 document.getElementById('tb-res-submit').closest('form').addEventListener('submit', (e) => {
                     e.preventDefault();
                     
-                    const fd = new FormData(e.target.closest('form'));
                     const xhr = new XMLHttpRequest();
-
+                    
                     xhr.addEventListener('load', (e) => {
-                        alert(e.target.responseText);
+                        console.log(e.target.responseText);
                     });
 
-                    xhr.open('post', `<?= esc_url(bloginfo('url')); ?>/wp-json/tb/v1/reservation/${document.getElementById('tb-reservation-name').value}`);
-                    xhr.send(fd);
+                    xhr.open('POST', `<?php echo esc_url(bloginfo('url')); ?>/wp-json/tb/v1/reservations`);
+
+                    xhr.setRequestHeader('X-WP-Nonce', '<?php echo esc_js(wp_create_nonce('wp_rest')); ?>');
+
+                    xhr.send(new FormData(e.target.closest('form')));
                 });
             </script>
         </form>

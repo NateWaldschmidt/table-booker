@@ -7,12 +7,6 @@
  * Author:      Blue Group
  */
 
-global $wpdb;
-global $tb_db_version;
-$td_db_version = '0.0.1';
-
-require plugin_dir_path(__FILE__).'/shortcodes/sc-form-new-reservation.php';
-
 // Ensures this class is not being used anywhere else.
 if (!class_exists('TB_Init')) {
     /**
@@ -24,8 +18,7 @@ if (!class_exists('TB_Init')) {
      */
     class TB_Init {
         public function __construct() {
-            // Initial creation of the plugin's database tables.
-            register_activation_hook(__FILE__, ['TB_Init', 'create_reservation_table']);
+            require('api/reservations.php');
 
             // Adds the restaurant post type.
             self::add_restaurant_post_type();
@@ -43,6 +36,8 @@ if (!class_exists('TB_Init')) {
          * @static
          */
         static function create_reservation_table() {
+            global $wpdb;
+
             // Adds the version of the table being created.
             add_option('td_db_version', $td_db_version);
 
@@ -52,20 +47,34 @@ if (!class_exists('TB_Init')) {
             $charset_collate = $wpdb->get_charset_collate();
 
             // Table SQL.
+            // $sql = "CREATE TABLE $table_name (
+            //     ID MEDIUMINT(9) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+            //     restaurant_id INT NOT NULL,
+            //     reservation_time DATETIME NOT NULL,
+            //     reservation_name VARCHAR(40),
+            //     reservation_user_id INT,
+            //     reservation_status INT NOT NULL CHECK (status >= -1 AND status <= 3),
+            //     reservation_party_size INT UNSIGNED,
+            //     reservation_notes VARCHAR(255),
+            //     reservation_public BOOLEAN NOT NULL DEFAULT 0,
+            //     PRIMARY KEY  (ID),
+            //     FOREIGN KEY (restaurant_id) REFERENCES {$wpdb->prefix}posts(ID),
+            //     FOREIGN KEY (reservation_user_id) REFERENCES {$wpdb->prefix}users(ID)
+            // ) $charset_collate;";
             $sql = "CREATE TABLE $table_name (
-                ID                     INT         NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                restaurant_id          INT         NOT NULL FOREIGN KEY REFERENCES {$wpdb->prefix}posts (ID),
-                reservation_time       DATETIME    NOT NULL,
-                reservation_name       VARCHAR(40),
-                reservation_user_id    INT                  FOREIGN KEY,
-                reservation_status     INT         NOT NULL                CHECK (status >= -1 AND status <= 3),
-                reservation_party_size INT         UNSIGNED,
-                reservation_notes      VARCHAR(255),
-                reservation_public     BOOLEAN     NOT NULL DEFAULT 0
-            ) $charset_collate";
+                id mediumint(9) NOT NULL AUTO_INCREMENT,
+                time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+                name tinytext NOT NULL,
+                text text NOT NULL,
+                url varchar(55) DEFAULT '' NOT NULL,
+                PRIMARY KEY  (id)
+              ) $charset_collate;";
 
             // Actually creates the table.
-            // dbDelta($sql);
+            require_once(ABSPATH.'wp-admin/includes/upgrade.php' );
+            dbDelta($sql);
+
+            echo 'Attempting...';
         }
 
         /**
@@ -165,7 +174,7 @@ if (!class_exists('TB_Init')) {
          * @static
          */
         static function add_restaurant_taxonomy() {
-            register_taxonomy('category', ['restaurant'], [
+            register_taxonomy('restaurantcategory', ['restaurant'], [
                 'hierarchical' => false,
                 'labels' => [
                     'name'          => _x( 'Restaurant Type', 'taxonomy general name' ),
@@ -178,6 +187,7 @@ if (!class_exists('TB_Init')) {
                     'new_item_name' => __( 'New Restaurant Type' ),
                     'menu_name'     => __( 'Restaurant Types' ),
                 ],
+                'public'            => true,
                 'show_ui'           => true,
                 'show_in_rest'      => true,
                 'show_admin_column' => true,
@@ -193,6 +203,7 @@ if (!class_exists('TB_Init')) {
          * @static
          */
         static function add_shortcodes() {
+            require plugin_dir_path(__FILE__).'/shortcodes/sc-form-new-reservation.php';
 
         }
 
@@ -478,4 +489,48 @@ if (!class_exists('TB_Init')) {
     add_action('init', function() { new TB_Init(); });
 }
 
+global $tb_db_version;
+$tb_db_version = '0.0.1';
 
+if (!function_exists('tb_create_reservation_table')) {
+    /**
+     * When the plugin is activated, this will prompt the
+     * creation of the reservation table that is necessary for
+     * the functionality of the Table Booker system.
+     * 
+     * @author Nathaniel Waldschmidt Nathaniel.Waldsch@gmail.com
+     * @return void
+     */
+    function tb_create_reservation_table():void {
+        global $wpdb;
+        global $tb_db_version;
+    
+        // Adds the version of the table being created.
+        add_option('tb_db_version', $tb_db_version);
+    
+        // Reservation Table Name.
+        $table_name = $wpdb->prefix.'tb_reservations';
+    
+        $charset_collate = $wpdb->get_charset_collate();
+    
+        $post_table_name = $wpdb->prefix.'posts';
+    
+        $sql = "CREATE TABLE $table_name (
+            ID bigint(20) AUTO_INCREMENT NOT NULL,
+            restaurant_id bigint(20) NOT NULL,
+            reservation_time datetime NOT NULL,
+            reservation_name varchar(40),
+            reservation_user_id bigint(20),
+            reservation_status tinyint(1) NOT NULL,
+            reservation_party_size tinyint(2) UNSIGNED,
+            reservation_notes varchar(255),
+            reservation_public tinyint(1) DEFAULT 0 NOT NULL,
+            PRIMARY KEY  (ID)
+        ) $charset_collate;";
+    
+        // Actually creates the table.
+        require_once(ABSPATH.'wp-admin/includes/upgrade.php' );
+        dbDelta($sql);
+    }
+    register_activation_hook(__FILE__, 'tb_create_reservation_table');
+}

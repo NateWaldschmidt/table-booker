@@ -1,0 +1,9 @@
+@use 'utilities/global';
+@use 'components/header';
+@use 'components/footer';
+@use 'utilities/variables' as var;
+
+h1 {
+    font-family: 'Roboto', sans-serif;
+    color: var.$color-primary-dark;
+}

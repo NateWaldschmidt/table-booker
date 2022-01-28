@@ -1,0 +1,47 @@
+@use 'utilities/global';
+@use 'components/header';
+@use 'components/footer';
+@use 'utilities/variables' as var;
+
+main {
+    max-width: var.$wrap-val;
+    padding: 3rem calc((100vw - var.$wrap-val) / 2);
+    margin: 0 auto;
+
+    background-color: var.$color-primary;
+    box-shadow: var.$bs-light;
+}
+
+h1 {
+    color: var.$color-font-light;
+    margin: 0 0 3rem 0;
+    text-transform: capitalize;
+}
+
+.tb-category-restaurants {
+    list-style: none;
+
+    margin: 0;
+    padding: 0;
+
+    @media screen and (var.$mobile-only) {
+        margin: 0 var.$mobile-margin;
+    }
+}
+
+.tb-restaurant {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    height: 6rem;
+    padding: 0.5rem;
+    border-radius: 5px;
+
+    background-color: var.$color-bg-light;
+}
+
+.tb-restaurant-title {
+    color: var.$color-font-dark;
+    font-size: 1.25rem;
+}
