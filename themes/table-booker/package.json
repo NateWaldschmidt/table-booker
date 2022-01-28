@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "sass --watch assets/sass:assets/css -s compressed"
+    "watch": "sass --watch assets/sass:assets/css -s compressed",
     "watch-local": "sass --watch assets/sass:assets/css -s compressed"
   },
   "author": "",
