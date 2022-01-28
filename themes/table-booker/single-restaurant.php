@@ -1,6 +1,6 @@
 <?php
     add_action('wp_head', function() {
-        ?><link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/reservation-form.css?=<?php echo filemtime(get_template_directory().'/assets/css/reservation-form.css'); ?>">
+        ?><link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/restaurant.css?=<?php echo filemtime(get_template_directory().'/assets/css/restaurant.css'); ?>">
         <?php
     });
     get_header();
@@ -8,7 +8,7 @@
     global $post;
 ?>
 <section class="restaurant-info">
-    <a class="btn-cancel" href="/wordpress">Cancel</a>
+    <a class="btn-cancel" href="<?php echo bloginfo('url'); ?>">Cancel</a>
     <h1><?php echo esc_html(the_title()); ?></h1>
     <img class="restaurant-photo" src="<?php echo get_template_directory_uri(); ?>/assets/images/cafe.jpg" alt="Cafe Exterior.">
     <div class="restaurant-rating">

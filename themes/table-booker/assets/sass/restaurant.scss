@@ -2,10 +2,7 @@
 @use 'utilities/variables' as var;
 @use 'components/input';
 @use 'components/popup-message';
-
-body > header {
-    display: none !important;
-}
+@use 'components/header';
 
 main {
     display:               grid;
