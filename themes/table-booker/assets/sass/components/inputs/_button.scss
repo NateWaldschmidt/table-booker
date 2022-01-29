@@ -1,0 +1,27 @@
+@use '../../utilities/variables' as var;
+
+.btn {
+    cursor: pointer;
+
+    padding: 0.35rem 0;
+    box-sizing:    border-box;
+    border:        none;
+    border-radius: 5px;
+
+    background-color: var.$color-primary;
+
+    color:       var.$color-font-light;
+    font-family: 'Roboto', sans-serif;
+    font-size:   0.875rem;
+    font-weight: bold;
+
+    transition: transform ease 250ms;
+
+    &:hover:not(:active) {
+        transform: scale(1.025);
+    }
+
+    &:active {
+        transform: scale(0.975);
+    }
+}
