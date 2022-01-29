@@ -1,0 +1,53 @@
+@use '../utilities/variables' as var;
+@use 'input';
+
+#form-site-search {
+    display:               grid;
+    grid-template-columns: 1fr 8rem;
+    gap:                   1rem;
+
+    max-width:     30rem;
+    margin:         0 auto;
+    padding:        0.5rem;
+    border-radius:  10px;
+    box-sizing:     border-box;
+
+    background-color: var.$color-bg-dark;
+    box-shadow:       var.$bs-light;
+
+    @media screen and (var.$mobile-only) {
+        grid-template-columns: 1fr;
+        margin: 0 var.$mobile-margin;
+    }
+
+    [type=search] {
+        height: 50px;
+        padding: 0 0.5rem;
+    }
+    [type=submit] {
+        height: 50px;
+    }
+
+    & > label, legend {
+        grid-column: 1 / -1;
+
+        color:       var.$color-font-light;
+        font-weight: 700;
+    }
+
+    fieldset {
+        display: flex;
+        flex-direction: column;
+
+        grid-column: 1 / -1;
+
+        margin:     0;
+        padding:    0;
+        border:     none;
+        box-sizing: border-box;
+
+        & > label {
+            color: var.$color-font-light;
+        }
+    }
+}
