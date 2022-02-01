@@ -13,4 +13,5 @@
 # Things to ignore within the theme and plugin.
 themes/table-booker/assets/css
 themes/table-booker/node_modules
+themes/table-booker/coverage
 *.log
