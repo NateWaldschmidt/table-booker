@@ -1,18 +1,30 @@
 <?php
 /* Template Name: Search Page */
 
-add_action('wp_head', function() { ?>
-    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/search.css?v=<?php echo filemtime(get_template_directory().'/assets/css/search.css'); ?>">
-<?php });
-
 // The script to filter results.
 wp_enqueue_script(
     'search-filter',
-    get_template_directory_uri().'/assets/js/search-filter.js',
+    get_template_directory_uri().'/assets/js/search.js',
     array(),
-    '1.0.0',
-    filemtime(get_template_directory().'/assets/js/search-filter.js')
+    filemtime(get_template_directory().'/assets/js/search.js')
 );
+add_filter(
+    'script_loader_tag',
+    function($tag, $handle, $src) {
+        if ($handle != 'search-filter') {
+            return $tag;
+        }
+        
+        $tag = '<script type="module" src="'.esc_url($src).'"></script>';
+        return $tag;
+    },
+    10,
+    3
+);
+
+add_action('wp_head', function() { ?>
+    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/search.css?v=<?php echo filemtime(get_template_directory().'/assets/css/search.css'); ?>">
+<?php });
 
 get_header();
 ?>
