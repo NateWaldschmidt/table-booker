@@ -34,7 +34,30 @@ get_header();
     <ul id="site-search-results">
         <?php if (have_posts()): ?>
             <?php while(have_posts()): the_post(); ?>
-                <li data-post-type="<?php echo esc_attr(get_post_type()); ?>">
+                <?php $post_type = get_post_type(); ?>
+                
+                <li
+                data-post-type="<?php echo esc_attr($post_type); ?>"
+                <?php if ($post_type == 'restaurant'): ?>
+                    <?php
+                    $price_rating = esc_attr(get_post_meta(get_the_id(), 'restaurant_pricing', true));
+                    $category = get_the_terms(get_the_id(), 'restaurantcategory');
+                    if ($category !== false) {
+                        foreach($category as $index=>$cat) {
+                            $category[$index] = $cat->term_id;
+                        }
+                    } else {
+                        $category = array();
+                    }
+                    ?>
+                    <?php if ($price_rating != '' || $price_rating != false): ?>
+                        data-price-rating="<?php echo $price_rating; ?>"
+                    <?php endif; ?>
+                    <?php if (count($category) > 0): ?>
+                        data-restaurant-category="<?php echo implode(',', $category); ?>"
+                    <?php endif; ?>
+                <?php endif; ?>
+                >
                     <a href="<?php esc_url(the_permalink()); ?>">
                         <?php esc_html(the_title()); ?>
                     </a>
