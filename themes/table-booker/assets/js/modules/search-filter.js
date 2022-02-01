@@ -6,49 +6,78 @@
  */
 const SearchFilter = {
     filterCBs: undefined,
-    searchResults: undefined,
-    init: function() {
-        // Sets the properties.
-        this.filterCBs = document.querySelectorAll('#form-site-search > fieldset [type=checkbox]');
-        this.searchResults = document.querySelectorAll('#site-search-results > li');
 
-        this.filterCBs?.forEach((cb) => {
-            cb.addEventListener('input', () => {
-                SearchFilter.filter();
-            });
+    searchResults: undefined,
+
+    init: function() {
+        /** @var { NodeList } fieldsets A nodelist consisting of fieldsets. */
+        const fieldsets = document.querySelectorAll('#ss-all-filters > fieldset');
+
+        // Loops the different fieldsets and stores the checkboxes in the object.
+        SearchFilter.filterCBs = new Map();
+        fieldsets.forEach((fs) => {
+            let type = fs.getAttribute('data-filter-type');
+
+            if (type != '') {
+                SearchFilter.filterCBs.set(type, fs.querySelectorAll('[type=checkbox]'));
+
+                // Adds the event listeners.
+                SearchFilter.filterCBs.get(type).forEach((cb) => {
+                    cb.addEventListener('input', () => {
+                        SearchFilter.filter();
+                    });
+                });
+            }
         });
+
+        console.log(SearchFilter.filterCBs);
+
+        this.searchResults = document.querySelectorAll('#site-search-results > li');
     },
 
     /**
-     * Gets a list of the toggled filters, then uses that
-     * to go through the posts in search of the 
-     * data-post-type attribute.  The ones that don't 
-     * exist in the Set of filters are removed.
+     * 
      * 
      * @memberof  SearchFilter
      * @namespace SearchFilter.filter
      */
     filter: function() {
-        /** @var { Set } filters The toggled filters to check against.*/
-        const filters = new Set();
-    
-        // Checks to see which checkboxes are toggled and need to be filtered.
-        this.filterCBs?.forEach((cb) => {
-            if (cb.checked == true) {
-                filters.add(cb.value);
-            }
+        const filterOut = new Set();
+        const keep = new Set();
+
+        // (1) Little dense here but essentially loops all fieldsets and then their nested checkboxes.
+        // (2) It checks each checkbox if it is checked.
+        // (3) If it is checked then it checks for the attributes determined by the fieldset's key in the map.
+        // (4) If the attribute matches, it needs to be shown. If not then it needs to be hidden.
+        // (5) This works on the OR logic, if it is a restaurant or it is a pizza category it will show.
+        this.filterCBs.forEach((fieldset, key) => {
+            fieldset.forEach(cb => {
+                if (cb.checked) {
+                    this.searchResults.forEach(res => {
+                        if (res.getAttribute(`data-${key}`) != cb.value) {
+                            filterOut.add(res);
+                        } else {
+                            keep.add(res);
+                        }
+                    });
+                }
+            });
         });
-    
-        // Go through the elements and hide elements based on the filters.
-        this.searchResults.forEach((liElem) => {
-            if (filters.size <= 0) {
-                liElem.hidden = false;
-            } else if (filters.has(liElem.getAttribute('data-post-type'))) {
-                liElem.hidden = false;
-            } else {
-                liElem.hidden = true;
-            }
-        })
+
+        // Checks if there is anything to filter out.
+        if (filterOut.size == 0){
+            this.searchResults.forEach(res => {
+                res.hidden = false;
+            });
+        } else {
+            filterOut.forEach(res => {
+                res.hidden = true;
+            });
+
+            keep.forEach(res => {
+                res.hidden = false;
+            });
+        }
     }
 }
 
