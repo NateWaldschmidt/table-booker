@@ -14,4 +14,5 @@
 themes/table-booker/assets/css
 themes/table-booker/node_modules
 themes/table-booker/coverage
+plugins/table-booker-system/node_modules
 *.log
