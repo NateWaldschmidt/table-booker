@@ -242,6 +242,30 @@ if (!class_exists('TB_Init')) {
                 <table class="form-table">
                     <tbody>
                         <tr>
+                            <th><label class="tb-form-label" for="restaurant-photo">Restaurant Photo</label></th>
+                            <td>
+                                <?php
+                                $restaurant_photo = get_post_meta($post->ID, 'restaurant_photo', true);
+                                if (!empty($restaurant_photo)) {
+                                    ?>
+                                    <img
+                                    height="100"
+                                    width="100"
+                                    src="<?php echo $restaurant_photo ?>"
+                                    alt="<?php echo esc_attr($post->title); ?>"
+                                    />
+                                    <?php
+                                }
+                                ?>
+                                <input
+                                type="file"
+                                id="restaurant-photo"
+                                class="tb-form-input"
+                                name="restaurant-photo"
+                                />
+                            </td>
+                        </tr>
+                        <tr>
                             <th><label for="restaurant-street-address">Street Address</label></th>
                             <td>
                                 <input
@@ -364,6 +388,9 @@ if (!class_exists('TB_Init')) {
                         </tr>
                     </tbody>
                 </table>
+                <script>
+                    document.getElementById('post').setAttribute('enctype', 'multipart/form-data');;
+                </script>
             <?php echo ob_get_clean();
         }
 
@@ -382,6 +409,15 @@ if (!class_exists('TB_Init')) {
             // Validate the nonce.
             if (!wp_verify_nonce($_POST['restaurant_meta_box_nonce'], 'restaurant_meta_box_nonce')) {
                 return;
+            }
+
+            // Preps the file to be base64 encoded and saved in the Database.
+            if (isset($_FILES['restaurant-photo'])) {
+                $mime = mime_content_type($_FILES['restaurant-photo']['tmp_name']);
+                $file = "data:".$mime.";base64,".base64_encode(file_get_contents($_FILES['restaurant-photo']['tmp_name']));
+                update_post_meta($post_id, 'restaurant_photo', $file);
+            } else {
+                update_post_meta($post_id, 'restaurant_photo', $_FILES);
             }
 
             // Street Address 1 Validation and Sanitization.

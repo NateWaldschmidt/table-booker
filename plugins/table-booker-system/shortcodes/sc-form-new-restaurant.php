@@ -29,7 +29,7 @@ function tb_new_restaurant_form():string {
         <div class="popup-message" hidden>
             <p>Success!</p>
         </div>
-        <form id="tb-form-new-restaurant">
+        <form id="tb-form-new-restaurant" enctype="multipart/form-data">
             <?php // Nonce for REST API use. ?>
             <script>const tbRestaurantNonce = '<?php echo esc_js(wp_create_nonce('wp_rest')); ?>';</script>
 
@@ -42,7 +42,7 @@ function tb_new_restaurant_form():string {
                 id="restaurant-title"
                 class="tb-form-input"
                 name="restaurant-title"
-                >
+                />
 
                 <label class="tb-form-label" for="restaurant-description">Description</label>
                 <textarea
@@ -64,6 +64,14 @@ function tb_new_restaurant_form():string {
                     <option value="3">$30.00-$44.99</option>
                     <option value="4">$45.00-$+</option>
                 </select>
+
+                <label class="tb-form-label" for="restaurant-photo">Restaurant Photo</label>
+                <input
+                type="file"
+                id="restaurant-photo"
+                class="tb-form-input"
+                name="restaurant-photo"
+                />
             </fieldset>
 
             <fieldset>
@@ -75,44 +83,43 @@ function tb_new_restaurant_form():string {
                 id="restaurant-street-1"
                 class="tb-form-input"
                 name="restaurant-street-1"
-                >
+                />
 
                 <label class="tb-form-label" for="restaurant-street-2">Additional Address Information</label>
                 <input
                 type="text"
                 id="restaurant-street-2"
-                
-                lass="tb-form-input"
+                class="tb-form-input"
                 name="restaurant-street-2" 
-                >
+                />
 
                 <label class="tb-form-label" for="restaurant-city">City</label>
                 <input class="tb-form-input"
                 type="text"
                 id="restaurant-city"
                 name="restaurant-city"
-                >
+                />
 
                 <label class="tb-form-label" for="restaurant-zip">Zip</label>
                 <input class="tb-form-input"
                 type="text"
                 id="restaurant-zip"
                 name="restaurant-zip"
-                >
+                />
 
                 <label class="tb-form-label" for="restaurant-state">State</label>
                 <input class="tb-form-input"
                 type="text"
                 id="restaurant-state"
                 name="restaurant-state"
-                >
+                />
 
                 <label class="tb-form-label" for="restaurant-country">Country</label>
                 <input class="tb-form-input"
                 type="text"
                 id="restaurant-country"
                 name="restaurant-country"
-                >
+                />
             </fieldset>
 
             <fieldset>
@@ -124,7 +131,7 @@ function tb_new_restaurant_form():string {
                 id="restaurant-phone-primary"
                 class="tb-form-input"
                 name="restaurant-phone-primary"
-                >
+                />
 
                 <label class="tb-form-label" for="restaurant-website">Website</label>
                 <input
@@ -132,7 +139,7 @@ function tb_new_restaurant_form():string {
                 id="restaurant-website"
                 class="tb-form-input"
                 name="restaurant-website"
-                >
+                />
             </fieldset>
 
             <button type="submit">Create Restaurant</button>
