@@ -1,8 +1,7 @@
-@use '../utilities/variables' as var;
+@use '../../utilities/variables' as var;
 
-/// @deprecated
-
-input {
+.inpt {
+    padding: 0 0.5rem;
     box-sizing:    border-box;
     border:        none;
     border-radius: 5px;
