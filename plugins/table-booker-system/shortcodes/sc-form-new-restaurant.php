@@ -53,6 +53,24 @@ function tb_new_restaurant_form():string {
                 rows="10"
                 ></textarea>
 
+                <fieldset>
+                    <legend>Category</legend>
+                    <?php
+                    $cats = get_terms([
+                        'taxonomy' => 'restaurantcategory',
+                        'hide_empty' => false
+                    ]);
+                    foreach($cats as $cat_obj): ?>
+                        <label>
+                            <input
+                            type="checkbox"
+                            name="restaurant-categories[]"
+                            value="<?php echo esc_attr($cat_obj->slug); ?>">
+                            <?php echo esc_html($cat_obj->name); ?>
+                        </label>
+                    <?php endforeach; ?>
+                </fieldset>
+
                 <label class="tb-form-label" for="restaurant-pricing">Average Meal Price</label>
                 <select
                 id="restaurant-pricing"

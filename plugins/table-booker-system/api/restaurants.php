@@ -147,6 +147,14 @@ class TB_Restaurant_REST_API {
             return new WP_Error('restaurant-creation-failure', 'Failed to create restaurant.', ['status' => 500]);
         }
 
+        // Adds the restaurant categories.
+        if (isset($_POST['restaurant-categories'])) {
+            foreach ($_POST['restaurant-categories'] as $cat_id) {
+                // Adds restaurant categories.
+                wp_set_object_terms( $post_id, $cat_id, 'restaurantcategory', true);
+            }
+        }
+
         // Preps the file to be base64 encoded and saved in the Database.
         if (isset($_FILES['restaurant-photo']['tmp_name']) && strlen($_FILES['restaurant-photo']['tmp_name']) > 0) {
             $mime = mime_content_type($_FILES['restaurant-photo']['tmp_name']);
