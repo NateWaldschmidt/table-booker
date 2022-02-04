@@ -1,0 +1,107 @@
+@use '../../utilities/variables' as var;
+
+.tb-user-reservations-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    list-style: none;
+
+    max-width: calc(var.$wrap-val - 2rem);
+    margin: 0 auto;
+    padding: 0;
+    border-radius: 10px;
+
+    background-color: var.$color-bg-light;
+    box-shadow: var.$bs-light;
+
+    & > li {
+        width: var.$wrap-val;
+        margin: 1rem 0;
+        padding: 1rem;
+        border-radius: 10px;
+
+        background-color: var.$color-bg-dark;
+        box-shadow: var.$bs-light;
+        box-sizing: border-box;
+    }
+}
+
+.tb-res {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    grid-template-rows: 1fr 1fr;
+    column-gap: 0.5rem;
+
+    color: var.$color-font-light;
+    font-size: 0.875rem;
+
+    & > .tb-res-rest {
+        font-size: 1rem;
+    }
+
+    & > .tb-res-status {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        grid-column: 4 / 5;
+        grid-row: span 2;
+
+        width: 6rem;
+        border-radius: 50px;
+        
+
+        font-size: 0.875rem;
+
+        &.completed {
+            border: 1px solid white;
+            background-color: rgba(var.$color-bg-light, 0.1);
+            color: white;
+        }
+        &.confirmed {
+            border: 1px solid limegreen;
+            background-color: rgba(limegreen, 0.1);
+            color: limegreen;
+        }
+        &.cancelled {
+            border: 1px solid red;
+            background-color: rgba(red, 0.1);
+            color: red;
+        }
+    }
+
+    & > .tb-res-datetime {
+        grid-column: 1 / 2;
+        grid-row: 2 / 3;
+
+        color: var.$color-font-reg;
+        font-size: 0.75rem;
+    }
+
+    & > .tb-res-name {
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
+    }
+
+    & > .tb-res-size {
+        grid-column: 2 / 3;
+        grid-row: 2 / 3;
+
+        color: var.$color-font-reg;
+        font-size: 0.75rem;
+    }
+
+    & > .tb-res-notes {
+        grid-column: 3 / 4;
+        grid-row: 1 / span 2;
+    }
+
+    & > h2 {
+        margin: 0;
+    }
+
+    & > p {
+        margin: 0;
+    }
+}
