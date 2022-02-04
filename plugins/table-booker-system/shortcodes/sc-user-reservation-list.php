@@ -29,6 +29,13 @@ function tb_user_reservation_list():string {
             <?php if ($results !== null && count($results) > 0): ?>
                 <ul class="tb-user-reservations-list">
                     <?php foreach($results as $reservation): ?>
+                        <?php
+                        // Formatting of the reservation date.
+                        $reservation->reservation_time = date_format(
+                            date_create($reservation->reservation_time),
+                            'F jS, Y, g:i A'
+                        );
+                        ?>
                         <li data-status="<?php echo esc_attr($reservation->reservation_status); ?>">
                             <article class="tb-res">
                                 <h2 class="tb-res-rest"><?php echo esc_html($reservation->post_title); ?></h2>
