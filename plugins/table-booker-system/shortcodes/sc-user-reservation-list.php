@@ -31,15 +31,19 @@ function tb_user_reservation_list():string {
                         <li data-status="<?php echo esc_attr($reservation->reservation_status); ?>">
                             <article class="tb-res">
                                 <h2 class="tb-res-rest"><?php echo esc_html($reservation->post_title); ?></h2>
-                                <p class="tb-res-status">
-                                    <?php if ($reservation->reservation_status == 3): ?>
+                                <?php if ($reservation->reservation_status == 3): ?>
+                                    <p class="tb-res-status completed">
                                         Completed
-                                    <?php elseif ($reservation->reservation_status == 2): ?>
-                                        Confirmed
-                                    <?php elseif ($reservation->reservation_status == -1): ?>
-                                        Cancelled
-                                    <?php endif; ?>
                                     </p>
+                                <?php elseif ($reservation->reservation_status == 2): ?>
+                                    <p class="tb-res-status confirmed">
+                                        Confirmed
+                                    </p>
+                                <?php elseif ($reservation->reservation_status == -1): ?>
+                                    <p class="tb-res-status cancelled">
+                                        Cancelled
+                                    </p>
+                                <?php endif; ?>
                                 <p class="tb-res-datetime"><?php echo esc_html($reservation->reservation_time); ?></p>
                                 <p class="tb-res-name"><?php echo esc_html($reservation->reservation_name); ?></p>
                                 <p class="tb-res-size">Party of <?php echo esc_html($reservation->reservation_party_size); ?></p>
