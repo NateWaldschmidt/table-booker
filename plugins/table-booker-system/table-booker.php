@@ -206,8 +206,8 @@ if (!class_exists('TB_Init')) {
          */
         static function add_shortcodes() {
             require_once plugin_dir_path(__FILE__).'/shortcodes/sc-form-new-reservation.php';
-
             require_once plugin_dir_path(__FILE__).'/shortcodes/sc-form-new-restaurant.php';
+            require_once plugin_dir_path(__FILE__).'/shortcodes/sc-user-reservation-list.php';
         }
 
         /**
