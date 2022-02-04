@@ -20,7 +20,8 @@ function tb_user_reservation_list():string {
         FROM $reservation_table
         INNER JOIN $post_table
         ON $reservation_table.restaurant_id = $post_table.ID
-        WHERE $reservation_table.reservation_user_id = ".get_current_user_id().";
+        WHERE $reservation_table.reservation_user_id = ".get_current_user_id()."
+        ORDER BY $reservation_table.reservation_time DESC;
     ");
 
     ob_start(); ?>
