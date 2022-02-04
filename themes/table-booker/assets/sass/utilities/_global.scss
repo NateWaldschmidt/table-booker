@@ -1,6 +1,7 @@
 @use '../components/header';
 @use 'variables' as var;
 @use '../components/shortcodes/new-restaurant-form';
+@use '../components/shortcodes/user-reservation-list';
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap');
 
