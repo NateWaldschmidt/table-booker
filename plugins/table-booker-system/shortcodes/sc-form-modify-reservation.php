@@ -31,10 +31,10 @@ function tb_modify_reservation_form():string {
 
 
      -->
-     <form>
+     <form id="tb-modify-reservation">
         
-        <label for="tb-restaurant-id"> Resturant ID: </label>
-        <input type="text" id = "tb-restaurant-id">
+        <h2><?php echo esc_html('The restaurant\'s name.'); ?></h2>
+        <input type="hidden" id = "tb-restaurant-id" value="<?php echo esc_html('-1'); ?>">
 
         <label for="tb-reservation-name"> Reservation Name: </label>
         <input type="text" id = "tb-reservation-name">
