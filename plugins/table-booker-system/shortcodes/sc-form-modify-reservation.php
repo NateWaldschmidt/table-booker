@@ -1,10 +1,5 @@
 <?php
 /**
- * Provides a front-end form for users to create
- * new restaurants.  This is intended to be 
- * un-styled to allow for theme styling.
- * 
- * @author Nathaniel Waldschmidt Nathaniel.Waldsch@gmail.com
  * @return string HTML to be used in the shortcode.
  */
 
