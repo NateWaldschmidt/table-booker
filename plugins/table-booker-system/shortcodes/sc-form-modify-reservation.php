@@ -37,34 +37,33 @@ function tb_modify_reservation_form():string {
 
      -->
      <form>
-
-        <label for="wordpress-id"> Resturant ID: </label>
-        <p><input type="text" id = "wordpress-id"></p>
         
         <label for="tb-restaurant-id"> Resturant ID: </label>
-        <p><input type="text" id = "tb-restaurant-id"></p>
+        <input type="text" id = "tb-restaurant-id">
 
         <label for="tb-reservation-name"> Reservation Name: </label>
-        <p><input type="text" id = "tb-reservation-name"></p>
+        <input type="text" id = "tb-reservation-name">
 
         <label for="tb-reservation-id"> User ID: </label>
-        <p><input type="text" id = "tb-user-id"></p>
+        <input type="text" id = "tb-user-id">
 
         <label for="tb-reservation-time"> Reservation Time: </label>
-        <p><input type="text" id = "tb-reservation-time"></p>
+        <input type="text" id = "tb-reservation-time">
 
         <label for="tb-reservation-status"> Status: </label>
-        <p><input type="text" id ="tb-reservation-status"></p>
+        <input type="text" id ="tb-reservation-status">
 
 
         <label for="tb-party-size"> Party Size: </label>
-        <p><input type="text" id ="tb-party-size"></p>
+        <input type="text" id ="tb-party-size">
 
         <label for="td-reservation-notes">Reservation Notes: </label>
-        <p><textarea id="tb-reservation-notes"></textarea></p>
+        <textarea id="tb-reservation-notes"></textarea>
 
 
-        <button id="tb-res-cancel">Cancel</button>
+        <button type="button" id="tb-res-cancel">Cancel</button>
+         
+        <button type="submit" id="tb-save-changes">Update Reservation</button>
 
     </form>
     <?php return ob_get_clean();
