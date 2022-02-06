@@ -1,19 +1,16 @@
 <form  class="reservation-form" action="">
     <h2 class="title">Create Reservation</h2>
 
-    <!-- Name for the Reservation -->
     <label class="label-general" for="reservation-name">
         <label for="reservation-name">Reservation Name</label>
-        <input type="text" name="reservation-name" id="reservation-name" value="John Smith" />
+        <input type="text" name="reservation-name" id="reservation-name" />
     </label>
 
-    <!-- Date of the Reservation -->
     <label class="label-general" for="reservation-date">
         Reservation Date
-        <input type="date" name="reservation-date" id="reservation-date" value="2022-01-06" />
+        <input type="date" name="reservation-date" id="reservation-date" />
     </label>
 
-    <!-- All of the Avilable Time Options -->
     <fieldset>
         <legend>Time</legend>
         <input id="time-1" type="radio" name="reservation-time" checked />
@@ -48,7 +45,7 @@
 
     <label class="label-general" for="party-size">
         Party Size
-        <input type="number" name="party-size" id="party-size" value="3" />
+        <input type="number" name="party-size" id="party-size" />
     </label>
 
     <label for="">
