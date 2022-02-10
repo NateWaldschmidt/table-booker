@@ -255,7 +255,7 @@ class TB_Reservation_REST_API {
         $safe_data = new stdClass();
 
         // Validates the reservation ID.
-        if (isset($req['reservation_id'])) {
+        if (isset($req['reservation-id'])) {
             $reservation_data = $wpdb->get_results($wpdb->prepare(
                 "SELECT ID, reservation_status
                 FROM {$wpdb->prefix}tb_reservations
@@ -264,7 +264,7 @@ class TB_Reservation_REST_API {
             ));
 
             // Invalid reservation ID check.
-            if ($reservation_data[0]->ID != $req['reservation_id']) {
+            if ($reservation_data[0]->ID != $req['reservation-id']) {
                 return new WP_Error(
                     'invalid_reservation_id',
                     'Invalid reservation ID.',
@@ -343,6 +343,13 @@ class TB_Reservation_REST_API {
         $response->set_status(204);
 
         return $response;
+    }
+
+    /**
+     * @static
+     */
+    static function delete() {
+        
     }
 }
 
