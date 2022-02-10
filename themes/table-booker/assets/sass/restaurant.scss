@@ -19,11 +19,27 @@ main {
     
     position: relative;
 
-    background-color: var.$color-primary;
-
     height:     100vh;
     padding:    4rem;
     box-sizing: border-box;
+
+    background-color: var.$color-primary;
+
+    color: var.$color-font-light;
+
+    &::before {
+        content: "";
+
+        position: absolute;
+        top: -100px;
+        
+        width: 100%;
+        height: 100%;
+
+        background-color: var.$color-primary;
+
+        z-index: -1;
+    }
 
     .btn-cancel {
         position: absolute;
@@ -56,19 +72,8 @@ main {
         object-fit: cover;
     }
 
-    & > .restaurant-rating {
-        display:         flex;
-        justify-content: center;
-        gap:             0.75rem;
-
-        & > * {
-            width:  32px;
-            height: 32px;
-
-            fill: #ffd000;
-
-            filter: drop-shadow(3px 3px 0 rgba(#ffd000, 0.25))
-        }
+    & > a {
+        color: var.$color-font-light;
     }
 
     & > .price-rating {
@@ -89,6 +94,11 @@ main {
             font-weight: 900;
             text-align:  center;
             text-shadow: 3px 3px 0 rgba(#90BE6D, 0.45);
+
+            &.price-rating-inactive {
+                color:       #304124;
+                text-shadow: 3px 3px 0 rgba(#304124, 0.45);
+            }
         }
     }
 }
