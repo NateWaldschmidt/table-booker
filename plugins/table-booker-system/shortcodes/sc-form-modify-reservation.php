@@ -32,11 +32,14 @@ function tb_modify_reservation_form():string {
 
      -->
      
+
+     <?php // Nonce for REST API use. ?>
+    <script>const tbReservationNonce = '<?php echo esc_js(wp_create_nonce('wp_rest')); ?>';</script>
         
      <?php if ($results !== null && count($results) > 0): ?>
                 <?php foreach($results as $reservation): ?>
                    
-                        <form id="tb-modify-reservation">
+                        <form class="tb-modify-reservation">
 
                             <h2><?php echo esc_html('The reservation id'); ?></h2>
                             <input type="hidden" id ="tb-reservation-id" name="tb-reservation-id"  value="<?php echo esc_attr($reservation->ID); ?>">

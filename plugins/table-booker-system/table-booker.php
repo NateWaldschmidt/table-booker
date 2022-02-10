@@ -47,6 +47,11 @@ if (!class_exists('TB_Init')) {
                 plugin_dir_url(__FILE__).'/assets/js/form-new-restaurant.js',
                 filemtime(plugin_dir_path(__FILE__).'/assets/js/form-new-restaurant.js')
             );
+            wp_register_script(
+                'tb_modify_reservation',
+                plugin_dir_url(__FILE__).'/assets/js/form-modify-reservation.js',
+                filemtime(plugin_dir_path(__FILE__).'/assets/js/form-modify-reservation.js')
+            );
         }
 
         /**
