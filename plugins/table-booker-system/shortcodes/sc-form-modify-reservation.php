@@ -11,6 +11,21 @@ function tb_modify_reservation_form():string {
             FROM {$wpdb->prefix}tb_reservations
             WHERE reservation_user_id = ".get_current_user_id().";
         ");
+
+    wp_enqueue_script('tb_modify_reservation');
+    add_filter(
+        'script_loader_tag',
+        function($tag, $handle, $src) {
+            if ($handle != 'tb_modify_reservation') {
+                return $tag;
+            }
+            
+            $tag = '<script type="module" src="'.esc_url($src).'"></script>';
+            return $tag;
+        },
+        10,
+        3
+    );
    
     ob_start(); var_dump($results); ?>
     <!-- 
