@@ -16,7 +16,6 @@ $terms = get_terms( array(
 <main>
     <?php // Checks if the taxonomy exists. ?>
     <?php if (is_object($terms) && is_a('WP_Error', get_class($terms))): ?>
-        ?>
         <h1>There are no restauarant categories.</h1>
     <?php else: ?>
         <h1>Restaurant Categories</h1>
