@@ -85,12 +85,25 @@
     <section class="restaurant-categories">
         <h2>Find Your New Favorite.</h2>
         <ul>
-            <li><a href="">Italian Food</a></li>
-            <li><a href="">Chinese Food</a></li>
-            <li><a href="">Fast Food</a></li>
-            <li><a href="">Drive Thru</a></li>
-            <li><a href="">Pick Up</a></li>
-            <li><a href="">Pizza</a></li>
+            <?php
+            $terms = get_terms( array(
+                'taxonomy' => 'restaurantcategory',
+                'hide_empty' => false,
+            ) );
+            ?>
+            <?php if (is_object($terms) && is_a('WP_Error', get_class($terms))): ?>
+                <li>
+                    <a href="/">Unable to Find Restaurant Categories</a>
+                </li>
+            <?php else: ?>
+                <?php foreach($terms as $term): ?>
+                    <li>
+                        <a href="<?php echo esc_url(bloginfo('url').'/'.$term->taxonomy.'/'.$term->slug);?> ">
+                            <?php echo esc_html($term->name); ?>
+                        </a>
+                    </li>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </ul>
     </section>
 </main>
