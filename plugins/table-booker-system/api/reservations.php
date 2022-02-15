@@ -71,6 +71,7 @@ class TB_Reservation_REST_API {
 
         $results = $wpdb->get_results($wpdb->prepare(
             "SELECT
+                ID,
                 restaurant_id,
                 reservation_time,
                 reservation_party_size
