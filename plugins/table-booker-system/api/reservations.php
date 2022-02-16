@@ -4,7 +4,7 @@
  * API endpoints for the reservation's table
  * created within this plugin.
  * 
- * @author Nathaniel Waldschmidt Nathaniel.Waldsch@gmail.com
+ * @author Nathaniel Waldschmidt <Nathaniel.Waldsch@gmail.com>
  */
 class TB_Reservation_REST_API {
     function __construct() {
@@ -25,8 +25,8 @@ class TB_Reservation_REST_API {
             'callback' => ['TB_Reservation_REST_API','put'],
         ]);
         register_rest_route('tb/v1', 'reservations/(?P<reservation_id>\d+)', [
-            'methods' => 'PUT',
-            'callback' => ['TB_Reservation_REST_API','user_put'],
+            'methods' => 'POST',
+            'callback' => ['TB_Reservation_REST_API','user_post'],
         ]);
     }
 
@@ -80,7 +80,7 @@ class TB_Reservation_REST_API {
             $restaurant_id
         ));
 
-        /** @var WP_REST_Response The Wordpress response to send back with the data. */
+        /** The Wordpress response to send back with the data. */
         $response = new WP_REST_Response($results);
         $response->set_status(200);
 
@@ -102,10 +102,10 @@ class TB_Reservation_REST_API {
             return new WP_Error('invalid_user', 'Invalid User.', ['status' => 401]);
         }
 
-        /** @var object The submitted data sent with the request. */
+        /** The submitted data sent with the request. */
         $req_data = $req->get_params();
 
-        /** @var object Sanitized and validated data that is safe for database insertion. */
+        /** Sanitized and validated data that is safe for database insertion. */
         $safe_data = new stdClass();
 
         // Restaurant ID validation.
@@ -197,7 +197,7 @@ class TB_Reservation_REST_API {
             'restaurant_id'          => $safe_data->restaurant_id,
             'reservation_time'       => $safe_data->reservation_time,
             'reservation_party_size' => $safe_data->reservation_party_size,
-            'reservation_status'     => 2
+            'reservation_status'     => 0
         ], [
             '%d',
             '%s',
@@ -241,7 +241,7 @@ class TB_Reservation_REST_API {
      * 
      * @static
      */
-    static function user_put($req) {
+    static function user_post( WP_REST_Request $req ) {
         global $wpdb;
 
         // User validation.
@@ -249,14 +249,14 @@ class TB_Reservation_REST_API {
             return new WP_Error('invalid_user', 'Invalid User.', ['status' => 401]);
         }
         
-        /** @var object The submitted data sent with the request. */
+        /** The submitted data sent with the request. */
         $req_data = $req->get_params();
 
-        /** @var array This is what will be used to insert that valid data into the database. */
+        /** This is what will be used to insert that valid data into the database. */
         $safe_data = new stdClass();
 
         // Validates the reservation ID.
-        if (isset($req['reservation-id'])) {
+        if (isset($req['reservation_id'])) {
             $reservation_data = $wpdb->get_results($wpdb->prepare(
                 "SELECT ID, reservation_status
                 FROM {$wpdb->prefix}tb_reservations
@@ -265,7 +265,7 @@ class TB_Reservation_REST_API {
             ));
 
             // Invalid reservation ID check.
-            if ($reservation_data[0]->ID != $req['reservation-id']) {
+            if ($reservation_data[0]->ID != $req['reservation_id']) {
                 return new WP_Error(
                     'invalid_reservation_id',
                     'Invalid reservation ID.',
@@ -293,8 +293,8 @@ class TB_Reservation_REST_API {
         }
 
         // Sanitizes and validates the reservation name.
-        if (isset($req_data['reservation-name'])) {
-            $safe_data->reservation_name = sanitize_text_field($req_data['reservation-name']);
+        if (isset($_POST['reservation-name'])) {
+            $safe_data->reservation_name = sanitize_text_field($_POST['reservation-name']);
 
         } else {
             return new WP_Error(
@@ -305,8 +305,8 @@ class TB_Reservation_REST_API {
         }
 
         // Sanitizes the reservation notes.
-        if (isset($req_data['reservation-notes'])) {
-            $safe_data->reservation_notes = sanitize_textarea_field($req_data['reservation-notes']);
+        if (isset($_POST['reservation-notes'])) {
+            $safe_data->reservation_notes = sanitize_textarea_field($_POST['reservation-notes']);
         }
 
         // Updates the requested reservation.
@@ -317,7 +317,7 @@ class TB_Reservation_REST_API {
                 "reservation_status" => 2,
                 "reservation_notes" => $safe_data->reservation_notes,
             ], [
-                "ID" => $safe_data->reservation_id,
+                "ID"                 => $safe_data->reservation_id,
                 "reservation_status" => 0,
             ], [
                 '%s',
@@ -331,7 +331,7 @@ class TB_Reservation_REST_API {
         );
 
         // Detects an error with the modification of the reservation.
-        if ($success === false) {
+        if ( $success === false || $success === 0 ) {
             return new WP_Error(
                 'reservation_error',
                 'Error updating reservation.',
@@ -339,7 +339,7 @@ class TB_Reservation_REST_API {
             );
         }
 
-        /** @var WP_REST_Response This is the object sent back to the user with the success status code. */
+        /** This is the object sent back to the user with the success status code. */
         $response = new WP_REST_Response();
         $response->set_status(204);
 
