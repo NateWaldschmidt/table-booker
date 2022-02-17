@@ -24,6 +24,12 @@ add_filter(
     3
 );
 
+add_action('wp_head', function() {
+    ?>
+    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/restaurant-reservation-creation.css?v=<?php echo filemtime(get_template_directory().'/assets/css/restaurant-reservation-creation.css'); ?>">
+    <?php
+});
+
 get_header();
 ?>
 
@@ -34,7 +40,7 @@ get_header();
         <script>const tbNewReservationNonce = '<?php echo esc_js(wp_create_nonce('wp_rest')); ?>';</script>
 
         <label for="restaurant-id">Choose your Restaurant</label>
-        <select id="restaurant-id" name="restaurant-id">
+        <select id="restaurant-id" name="restaurant-id" class="inpt">
             <?php
             $user_restaurants = new WP_Query([
                 'author'    => get_current_user_id(),
