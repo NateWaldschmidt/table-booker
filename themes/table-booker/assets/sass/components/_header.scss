@@ -7,6 +7,10 @@ body {
     top: $header-height;
 }
 
+.admin-bar > header {
+    top: 24px !important;
+}
+
 body > header {
     display:         flex;
     align-items:     center;
@@ -59,6 +63,25 @@ body > header {
 
     @media screen and (var.$mobile-only) {
         font-size: 1.25rem;
+    }
+}
+
+#menu-header-menu {
+    display: flex;
+    gap: 1.5rem;
+
+    list-style: none;
+
+    margin: 0;
+    padding: 0;
+
+    a {
+        color: var.$color-font-light;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
     }
 }
 
