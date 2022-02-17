@@ -7,37 +7,26 @@
 
 <img src="<?php echo get_template_directory_uri(); ?>/assets/images/landing.jpg" alt="Warm restaurant booth seating.">
 <main>
-    <form id="reservation-form" action="">
-        <label for="reservation-date">
-            Reservation Date
-            <input id="reservation-date" type="date" value="2022-01-06" />
+    <form id="form-site-search" action="/" method="get" role="search">
+        <label for="site-search">
+            Search
+            <input
+            type        ="search"
+            id          ="site-search"
+            name        ="s"
+            value       ="<?php the_search_query(); ?>"
+            aria-label  ="website"
+            autocomplete="on"
+            />
         </label>
 
-        <label for="reservation-time">
-            Reservation Time
-            <input id="reservation-time" type="time" list="available-time-list" />
-            <datalist id="available-time-list">
-                <option value="18:30:00">6:30:00</option>
-            </datalist>
-        </label>
-
-        <label for="reservation-party-size">
-            Party Size
-            <input id="reservation-party-size" type="number" value="3">
-        </label>
-
-        <label for="restaurant-name">
-            Restaurant
-            <input id="restaurant-name" type="text" list="available-restaurant-list" placeholder="Enter a Restaurant Name.">
-            <datalist id="available-restaurant-list">
-                <option value="Burger Local">445 W. 1st Street, Chicago, IL</option>
-                <option value="Cafe Bilhares">85 3rd Street, Chicago, IL</option>
-                <option value="Olive Garden">826 State Street, Chicago, IL</option>
-            </datalist>
-        </label>
-
-        <button type="submit">
-            Setup Reservation
+        <button
+        type      ="submit"
+        class     ="btn"
+        aria-label="Submit Search"
+        title     ="Submit Search"
+        >
+            Submit Search
         </button>
     </form>
 

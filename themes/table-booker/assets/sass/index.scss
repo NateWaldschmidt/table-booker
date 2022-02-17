@@ -28,7 +28,7 @@ main {
 }
 
 // The main way of creating a reservation when first visiting the website.
-#reservation-form {
+#form-site-search {
     position: relative;
     top:      -8.5rem;
 
@@ -37,7 +37,7 @@ main {
     justify-content: space-between;
 
     width:         100%;
-    max-width:     var.$wrap-val;
+    max-width:     450px;
     padding:         0.5rem;
     box-sizing:    border-box;
     border-radius:  10px;
@@ -55,7 +55,7 @@ main {
         inset:    0 0 0 0;
 
         width:         100%;
-        max-width:     var.$wrap-val;
+        max-width:     450px;
         padding:         0.5rem;
         box-sizing:    border-box;
         border-radius:  10px;
