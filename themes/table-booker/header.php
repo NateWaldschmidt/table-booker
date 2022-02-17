@@ -13,6 +13,13 @@
 		<a id="home-logo-link" href="<?php echo bloginfo('url'); ?>"><?php echo bloginfo('name'); ?></a>
 		<!-- <button type="button">+</button> -->
 	</div>
+	<?php
+	wp_nav_menu(
+		array(
+			'menu' => 'header-menu'
+		)
+	);
+	?>
 	<?php if ( is_user_logged_in() ): ?>
 		<div class="account-container">
 			<?php
