@@ -28,6 +28,10 @@ class TB_Reservation_REST_API {
             'methods' => 'PUT',
             'callback' => ['TB_Reservation_REST_API','user_put'],
         ]);
+        register_rest_route('tb/v1', 'reservations/(?P<reservation_id>\d+)', [
+            'methods' => 'DELETE',
+            'callback' => ['TB_Reservation_REST_API','delete'],
+        ]);
     }
 
     /**
@@ -348,8 +352,53 @@ class TB_Reservation_REST_API {
     /**
      * @static
      */
-    static function delete() {
-        
+    static function delete($req) {
+        global $wpdb;
+
+        // User validation.
+        if (get_current_user_id() == 0) {
+            return new WP_Error('invalid_user', 'Invalid User.', ['status' => 401]);
+        }
+
+        /** @var object The submitted data sent with the request. */
+        $req_data = $req->get_params();
+
+        // Validates the reservation ID.
+        if (isset($req['reservation-id'])) {
+            $reservation_data = $wpdb->get_results($wpdb->prepare(
+                "SELECT ID, reservation_status
+                FROM {$wpdb->prefix}tb_reservations
+                WHERE ID = %d;",
+                $req['reservation_id']
+            ));
+
+            // Invalid reservation ID check.
+            if ($reservation_data[0]->ID != $req['reservation-id']) {
+                return new WP_Error(
+                    'invalid_reservation_id',
+                    'Invalid reservation ID.',
+                    ['status' => 400]
+                );
+            }
+
+            // Checks that the status of the reservation is available still.
+            if ($reservation_data[0]->reservation_status != 2) {
+                return new WP_Error(
+                    'reservation_unavailable',
+                    'Reservation is unavailable for deletion.',
+                    ['status' => 403]
+                );
+            }
+
+            $safe_data->reservation_id = (int)$reservation_data[0]->ID;
+
+        } else {
+            return new WP_Error(
+                'no_reservation_id',
+                'Missing reservation ID.',
+                ['status' => 400]
+            );
+        }
     }
 }
 

@@ -28,7 +28,7 @@ const ModifyReservation = {
         });
 
         // Where we are going we don't need query parameters.
-        xhr.open('PUT', `${location.protocol}//${location.host}/wp-json/tb/v1/reservations/{reservationID}`);
+        xhr.open('POST', `${location.protocol}//${location.host}/wp-json/tb/v1/reservations/{reservationID}`);
         
          
         xhr.onload = function () {
