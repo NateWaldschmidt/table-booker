@@ -27,7 +27,7 @@ function tb_modify_reservation_form():string {
         3
     );
    
-    ob_start(); var_dump($results); ?>
+    ob_start(); ?>
     <!-- 
         Make sure to load up people using sql
         1. Button for Cancel 

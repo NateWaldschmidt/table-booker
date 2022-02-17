@@ -13,31 +13,18 @@ const ModifyReservation = {
 
         const xhr = new XMLHttpRequest();
 
-       
-        //Listen for a response 
-        xhr.addEventListener('load', (e) => {
-            //Success!
-            if(e.target.status === 201) {
-                PopUp.message = 'Data successfully loaded!';
-                PopUp.show();
-            } else {
-                PopUp.message = e.target.statusText;
-                PopUp.show();
-            }
+        /** The reservation ID to use in the query. */
+        const resID = document.getElementById('tb-reservation-id').value;
 
-        });
-
-        // Where we are going we don't need query parameters.
-        xhr.open('POST', `${location.protocol}//${location.host}/wp-json/tb/v1/reservations/{reservationID}`);
+        xhr.open('POST', `${location.protocol}//${location.host}/wp-json/tb/v1/reservations/${resID}`);
         
-         
         xhr.onload = function () {
             // return response type as text 
             var reservation = JSON.parse(xhr.responseText);
-            if(xhr.status == "201") {
+            if(xhr.status == "204") {
                 console.log(reservation);
             } else {
-                console.error("Cannot load reservations");
+                console.error("Error");
             }
         }
 
@@ -50,7 +37,7 @@ const ModifyReservation = {
 
 
         // We have lift off!
-        xhr.send(ModifyReservation.forms);
+        xhr.send(new FormData(e.target));
         
     }
 
