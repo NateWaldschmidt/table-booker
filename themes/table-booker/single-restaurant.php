@@ -3,6 +3,28 @@
         ?><link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/assets/css/restaurant.css?=<?php echo filemtime(get_template_directory().'/assets/css/restaurant.css'); ?>">
         <?php
     });
+
+    // The script to to submit the reservation.
+    wp_enqueue_script(
+        'user-reservation',
+        get_template_directory_uri().'/assets/js/user-reservation.js',
+        array(),
+        filemtime(get_template_directory().'/assets/js/user-reservation.js')
+    );
+    add_filter(
+        'script_loader_tag',
+        function($tag, $handle, $src) {
+            if ($handle != 'user-reservation') {
+                return $tag;
+            }
+            
+            $tag = '<script type="module" src="'.esc_url($src).'"></script>';
+            return $tag;
+        },
+        10,
+        3
+    );
+
     get_header();
 ?>
 <main>
@@ -48,40 +70,46 @@
             ?>
         </div>
     </section>
-    <?php get_template_part('/template-parts/part-reservation-form'); ?>
+    <form id="tb-book-reservation" class="reservation-form">
+        <script>const tbUserReservationNonce = '<?php echo esc_js(wp_create_nonce('wp_rest')); ?>';</script>
+
+        <h2 class="title">Book Reservation</h2>
+
+        <label class="label-general" for="reservation-name">
+            Reservation Name
+            <input type="text" name="reservation-name" id="reservation-name" />
+        </label>
+
+        <label class="label-general" for="reservation-id">
+            Reservation Date
+            <select id="reservation-id" name="reservation-id">
+                <?php
+                $request  = new WP_REST_Request( 'GET', "/tb/v1/reservations/{$post->ID}" );
+                $response = rest_do_request( $request );
+                $server   = rest_get_server();
+                $data     = $server->response_to_data( $response, false );
+                ?>
+                <?php if ( is_array( $data ) && count( $data ) > 0 ): ?>
+                    <?php foreach( $data as $reservation ): ?>
+                        <?php
+                        // Formatting of the reservation date.
+                        $formatted_datetime = date_format(
+                            date_create($reservation->reservation_time),
+                            'F jS, Y, g:i A'
+                        );
+                        ?>
+                        <option value="<?php echo esc_attr($reservation->ID); ?>">
+                            <?php echo esc_html($formatted_datetime); ?>
+                            (<?php echo esc_html($reservation->reservation_party_size); ?> People)
+                        </option>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <option disabled selected>No Available Reservations</option>
+                <?php endif; ?>
+            </select>
+        </label>
+        
+        <button id="tb-reservation-update" type="submit">Book It</button>
+    </form>
 </main>
-
-<script>
-    // Handles the submission of the form and shows a confirmation of the booking. This will not stay here for production.
-    (function() {
-        const submitButton = document.querySelector('.reservation-form > [type=submit]');
-        submitButton.addEventListener('click', (e) => {
-            e.preventDefault();
-
-            // Runs first animation.
-            let confirmationMessage = document.querySelector('.confirmation-message')
-            confirmationMessage.hidden = false;
-
-            // Shows message for 5 seconds.
-            setTimeout(() => {
-                // Stores and removes animation style.
-                let animationStyle = window.getComputedStyle(confirmationMessage).animation;
-
-                // Runs the hide animation.
-                window.requestAnimationFrame(() => {
-                    confirmationMessage.style.animation = undefined;
-                    window.requestAnimationFrame(() => {
-                        confirmationMessage.style.animation = '0.3s ease 0s 1 reverse none running slide-in';
-                    });
-                });
-
-                // Hides from DOM and reverts styles back.
-                setTimeout(() => {
-                    confirmationMessage.hidden = true;
-                    confirmationMessage.style.animation = animationStyle;
-                }, 300);
-            }, 5000);
-        });
-    })();
-</script>
 <?php get_footer(); ?>

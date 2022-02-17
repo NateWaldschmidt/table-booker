@@ -1,0 +1,52 @@
+@use 'utilities/global';
+@use 'components/header';
+@use 'components/footer';
+@use 'utilities/variables' as var;
+@use 'components/input';
+
+main {
+    max-width: var.$wrap-val;
+    margin: 0 auto;
+}
+
+#tb-new-reservation {
+    display:        flex;
+    flex-direction: column;
+
+    width: 100%;
+    max-width: 470px;
+    margin: 0 auto;
+    padding: 1rem;
+    box-sizing: border-box;
+    border-radius: 10px;
+
+    background-color: rgba(var.$color-bg-dark, 0.25);
+    box-shadow: var.$bs-light;
+
+    input:not([type=checkbox]), select {
+        height: 40px;
+        padding: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    label, legend {
+        color: var.$color-font-light;
+        font-family: 'Roboto', sans-serif;
+        font-weight: 700;
+    }
+
+    [type=submit] {
+        cursor: pointer;
+
+        height: 40px;
+        border: none;
+        border-radius: 5px;
+
+        background-color: var.$color-primary;
+
+        color: var.$color-font-light;
+        font-family: 'Roboto', sans-serif;
+        font-size: 0.875rem;
+        font-weight: 700;
+    }
+}
