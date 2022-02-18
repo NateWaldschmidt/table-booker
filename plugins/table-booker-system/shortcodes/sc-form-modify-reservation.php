@@ -6,11 +6,13 @@
 function tb_modify_reservation_form():string {
     global $wpdb;
     
-    $results = $wpdb->get_results("
-            SELECT *
-            FROM {$wpdb->prefix}tb_reservations
-            WHERE reservation_user_id = ".get_current_user_id().";
-        ");
+    $results = $wpdb->get_results(
+        "SELECT *
+        FROM {$wpdb->prefix}tb_reservations
+        INNER JOIN {$wpdb->prefix}posts
+        ON {$wpdb->prefix}posts.ID = {$wpdb->prefix}tb_reservations.restaurant_id
+        WHERE reservation_status = 2 AND reservation_user_id = ".get_current_user_id().";"
+    );
 
     wp_enqueue_script('tb_modify_reservation');
     add_filter(
@@ -48,52 +50,29 @@ function tb_modify_reservation_form():string {
      -->
      
 
-     <?php // Nonce for REST API use. ?>
+    <?php // Nonce for REST API use. ?>
     <script>const tbReservationNonce = '<?php echo esc_js(wp_create_nonce('wp_rest')); ?>';</script>
         
      <?php if ($results !== null && count($results) > 0): ?>
-                <?php foreach($results as $reservation): ?>
-                   
-                        <form class="tb-modify-reservation">
+        <?php foreach($results as $reservation): ?>
+            <form class="tb-modify-reservation">
+                <h2><?php echo esc_html($reservation->post_title); ?></h2>
+                <p><?php echo esc_html(date("F jS, g:i a", strtotime($reservation->reservation_time))); ?></p>
 
-                            <h2><?php echo esc_html('The reservation id'); ?></h2>
-                            <input type="hidden" id ="tb-reservation-id" name="tb-reservation-id"  value="<?php echo esc_attr($reservation->ID); ?>">
+                <input type="hidden" id ="tb-reservation-id" name="tb-reservation-id"  value="<?php echo esc_attr($reservation->ID); ?>">
 
-                            <label for="tb-reservation-time"> Reservation Time: </label>
-                            <?php $reservation->reservation_time[10] = 'T';?>
-                            <input type="datetime-local" id = "tb-reservation-time" name="tb-reservation-time" value="<?php echo esc_attr($reservation->reservation_time);?>" >
+                <label for="tb-reservation-name">Reservation Name</label>
+                <input type="text" id = "tb-reservation-name" name="tb-reservation-name" value=<?php echo esc_attr($reservation->reservation_name);?> >
 
-                            <label for="tb-reservation-name"> Reservation Name: </label>
-                            <input type="text" id = "tb-reservation-name" name="tb-reservation-name" value=<?php echo esc_attr($reservation->reservation_name);?> >
-                            
-
-                            <label for="tb-reservation-id"> User ID: </label>
-                            <input type="text" id = "tb-user-id" name="tb-user-id" value=<?php echo esc_attr($reservation->reservation_user_id);?> >
-
-                        
-
-                            <label for="tb-reservation-status"> Status: </label>
-                            <input type="text" id ="tb-reservation-status" name="tb-reservation-status" value=<?php echo esc_attr($reservation->reservation_status);?> >
-
-
-                            <label for="tb-party-size"> Party Size: </label>
-                            <input type="text" id ="tb-party-size" name="tb-party-size" value=<?php echo esc_attr($reservation->reservation_party_size);?> >
-
-                            <label for="td-reservation-notes">Reservation Notes: </label>
-                            <textarea id="tb-reservation-notes" name="tb-reservation-notes"  value=<?php echo esc_attr($reservation->reservation_notes);?> ></textarea>
-                            
-                            <button type="submit" id="tb-res-cancel" name="tb-res-cancel">Cancel</button>
-            
-                            <button type="submit" id="tb-save-changes" name="tb-save-changes">Update Reservation</button>
- 
-                        </form>
-
-                         <?php endforeach; ?>
-            <?php else: ?>
-               
-                <h2>You have no reservations.</h2>
-
-            <?php endif; ?>
+                <label for="td-reservation-notes">Reservation Notes</label>
+                <textarea id="tb-reservation-notes" name="tb-reservation-notes"  value=<?php echo esc_attr($reservation->reservation_notes);?> ></textarea>
+                
+                <button type="submit" id="tb-save-changes" name="tb-save-changes">Update Reservation</button>
+            </form>
+        <?php endforeach; ?>
+    <?php else: ?> 
+        <h2>You have no reservations.</h2>
+    <?php endif; ?>
 
     <?php return ob_get_clean();
 }
