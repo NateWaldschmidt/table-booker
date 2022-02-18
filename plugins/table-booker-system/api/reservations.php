@@ -28,6 +28,10 @@ class TB_Reservation_REST_API {
             'methods' => 'POST',
             'callback' => ['TB_Reservation_REST_API','user_post'],
         ]);
+        register_rest_route('tb/v1', 'reservations/(?P<reservation_id>\d+)', array(
+            'methods' => "DELETE",
+            'callback' => ['TB_Reservation_REST_API','delete_res'],
+        ));
     }
 
     /**
@@ -349,8 +353,69 @@ class TB_Reservation_REST_API {
     /**
      * @static
      */
-    static function delete() {
+    static function delete_res($req) {
+        global $wpdb;
+
+        // User validation.
+        if (get_current_user_id() == 0) {
+            return new WP_Error('invalid_user', 'Invalid User.', ['status' => 401]);
+        }
         
+        /** The submitted data sent with the request. */
+        $req_data = $req->get_params();
+
+        $reservation_id;
+
+        // Validates the reservation ID.
+        if (isset($req['reservation_id'])) {
+            $reservation_data = $wpdb->get_results($wpdb->prepare(
+                "SELECT ID
+                FROM {$wpdb->prefix}tb_reservations
+                WHERE ID = %d AND reservation_user_id = %d;",
+                array( 
+                    $req['reservation_id'],
+                    get_current_user_id()
+                )
+            ));
+
+            // Invalid reservation ID check.
+            if ($reservation_data[0]->ID != $req['reservation_id']) {
+                return new WP_Error(
+                    'invalid_reservation_id',
+                    'Invalid reservation ID.',
+                    ['status' => 400]
+                );
+            }
+
+            $reservation_id = (int)$reservation_data[0]->ID;
+
+        } else {
+            return new WP_Error(
+                'no_reservation_id',
+                'Missing reservation ID.',
+                ['status' => 400]
+            );
+        }
+
+        $success = $wpdb->delete(
+            $wpdb->prefix.'tb_reservations',
+            array( 'ID' => $reservation_id ),
+            array ( '%d' )
+        );
+
+        if ($success === false || $success === 0) {
+            return new WP_Error(
+                'deletion_failed',
+                'Failed to delete.',
+                ['status' => 500]
+            );
+        }
+
+        /** This is the object sent back to the user with the success status code. */
+        $response = new WP_REST_Response();
+        $response->set_status(200);
+
+        return $response;
     }
 }
 

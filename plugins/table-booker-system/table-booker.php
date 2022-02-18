@@ -52,6 +52,11 @@ if (!class_exists('TB_Init')) {
                 plugin_dir_url(__FILE__).'/assets/js/form-modify-reservation.js',
                 filemtime(plugin_dir_path(__FILE__).'/assets/js/form-modify-reservation.js')
             );
+            wp_register_script(
+                'tb_delete_reservation',
+                plugin_dir_url(__FILE__).'/assets/js/delete-reservation.js',
+                filemtime(plugin_dir_path(__FILE__).'/assets/js/delete-reservation.js')
+            );
         }
 
         /**
@@ -210,7 +215,6 @@ if (!class_exists('TB_Init')) {
          * @static
          */
         static function add_shortcodes() {
-            require_once plugin_dir_path(__FILE__).'/shortcodes/sc-form-new-reservation.php';
             require_once plugin_dir_path(__FILE__).'/shortcodes/sc-form-new-restaurant.php';
             require_once plugin_dir_path(__FILE__).'/shortcodes/sc-form-modify-reservation.php';
             require_once plugin_dir_path(__FILE__).'/shortcodes/sc-user-reservation-list.php';

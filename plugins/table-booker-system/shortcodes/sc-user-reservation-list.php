@@ -14,6 +14,21 @@ function tb_user_reservation_list():string {
     $reservation_table = "{$wpdb->prefix}tb_reservations";
     $post_table = "{$wpdb->prefix}posts";
 
+    wp_enqueue_script('tb_delete_reservation');
+    add_filter(
+        'script_loader_tag',
+        function($tag, $handle, $src) {
+            if ($handle != 'tb_delete_reservation') {
+                return $tag;
+            }
+            
+            $tag = '<script type="module" src="'.esc_url($src).'"></script>';
+            return $tag;
+        },
+        10,
+        3
+    );
+
     // Gets the data used for the reservation list.
     $results = $wpdb->get_results("
         SELECT $reservation_table.*, $post_table.post_title
@@ -26,6 +41,7 @@ function tb_user_reservation_list():string {
 
     ob_start(); ?>
         <section class="tb-user-reservations">
+            <script>const tbReservationDeleteNonce = '<?php echo esc_js(wp_create_nonce('wp_rest')); ?>';</script>
             <?php if ($results !== null && count($results) > 0): ?>
                 <ul class="tb-user-reservations-list">
                     <?php foreach($results as $reservation): ?>
