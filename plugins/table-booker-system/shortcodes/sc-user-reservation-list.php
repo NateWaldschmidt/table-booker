@@ -53,7 +53,7 @@ function tb_user_reservation_list():string {
                                     </p>
                                 <?php endif; ?>
                                 <button 
-                                class="js-res-delete tb-res-status cancelled" 
+                                class="js-res-delete tb-res-status delete" 
                                 data-res-id="<?php echo esc_attr($reservation->ID); ?>"
                                 >Delete</button>
                                 <p class="tb-res-datetime"><?php echo esc_html($reservation->reservation_time); ?></p>

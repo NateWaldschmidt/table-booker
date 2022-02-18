@@ -87,6 +87,20 @@
             background-color: rgba(red, 0.1);
             color: red;
         }
+        &.delete {
+            cursor: pointer;
+
+            border: 1px solid red;
+            background-color: rgba(red, 0.1);
+            color: red;
+
+            transition: background-color ease 300ms, color ease 300ms;
+
+            &:hover {
+                color: white;
+                background-color: rgba(red, 1);
+            }
+        }
     }
 
     & > .tb-res-datetime {
