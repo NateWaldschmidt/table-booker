@@ -16,15 +16,14 @@ const ModifyReservation = {
         /** The reservation ID to use in the query. */
         const resID = document.getElementById('tb-reservation-id').value;
 
-        xhr.open('POST', `${location.protocol}//${location.host}/wp-json/tb/v1/reservations/${resID}`);
+        xhr.open('POST', `${location.protocol}//${location.host}/wp-json/tb/v1/reservations/modify/${resID}`);
         
         xhr.onload = function () {
             // return response type as text 
-            var reservation = JSON.parse(xhr.responseText);
             if(xhr.status == "204") {
                 console.log(reservation);
             } else {
-                console.error("Error");
+                console.error(xhr.response);
             }
         }
 
@@ -44,7 +43,5 @@ const ModifyReservation = {
     
 
 }
-
-console.log('Hello world.');
 
 export default ModifyReservation;
