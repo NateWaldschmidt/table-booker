@@ -52,6 +52,10 @@ function tb_user_reservation_list():string {
                                         Cancelled
                                     </p>
                                 <?php endif; ?>
+                                <button 
+                                class="js-res-delete tb-res-status cancelled" 
+                                data-res-id="<?php echo esc_attr($reservation->ID); ?>"
+                                >Delete</button>
                                 <p class="tb-res-datetime"><?php echo esc_html($reservation->reservation_time); ?></p>
                                 <p class="tb-res-name"><?php echo esc_html($reservation->reservation_name); ?></p>
                                 <p class="tb-res-size">Party of <?php echo esc_html($reservation->reservation_party_size); ?></p>
